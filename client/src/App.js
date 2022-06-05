@@ -6,6 +6,7 @@ import About from "./Containers/About";
 import Search from "./Containers/Search";
 import Login from "./Containers/Login";
 import Register from "./Containers/Register";
+import Profile from "./Components/Profile";
 export default function App() {
   return (
     <>
@@ -18,6 +19,7 @@ export default function App() {
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/favourites" element={<Favourites />} />
           <Route exact path="/about" element={<About />} />
+          <Route exact path="/profile" element={<Profile />} />
         </Routes>
       </Router>
     </>

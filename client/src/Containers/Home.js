@@ -4,7 +4,7 @@ import ListSummary from "../Components/ListSummary";
 function Home() {
   const navigate = useNavigate();
   return (
-    <div class="flex flex-col justify-center dark:bg-gray-800">
+    <div className="flex flex-col justify-center dark:bg-gray-800">
       {/* The Header*/}
       <div className="lg:flex-1 pb-5 pt-20 lg:pt-24 font-extrabold text-center justify-center">
         <h1 className="text-5xl lg:text-6xl dark:text-white">
@@ -26,16 +26,16 @@ function Home() {
               height="24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="flex-none text-slate-300 dark:text-slate-400"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="flex-none text-slate-300 dark:text-slate-400"
               aria-hidden="true"
             >
               <path d="m19 19-3.5-3.5"></path>
               <circle cx="11" cy="11" r="6"></circle>
             </svg>
-            <span class="flex-auto">Search a location...</span>
+            <span className="flex-auto">Search a location...</span>
           </button>
         </div>
       </div>
