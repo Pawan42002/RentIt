@@ -13,13 +13,13 @@ const Navbar = () => {
   };
   return (
     <>
-      <nav className="flex justify-between bg-white text-black py-4">
+      <nav className="flex justify-between bg-white text-black py-4 ">
         <ul className="flex mx-4">
           <li className="cursor-pointer font-bold ">
             <Link to="/">RentIt</Link>
           </li>
         </ul>
-        <ul className="hidden md:flex justify-center space-x-4 font-medium ">
+        <ul className="hidden md:flex justify-start space-x-4 font-medium pr-40">
           <li className="cursor-pointer hover:text-purple-500">
             <Link to="/">Home</Link>
           </li>
@@ -52,7 +52,7 @@ const Navbar = () => {
               />
             </svg>
             {isopen && (
-              <ul className="flex flex-col justify-center py-3 space-y-2">
+              <ul className="flex flex-col justify-center py-3 space-y-2 bg-purple-300 px-3 py-4 rounded-2xl">
                 <li className="cursor-pointer hover:text-purple-500">
                   <Link to="/">Home</Link>
                 </li>
