@@ -5,15 +5,13 @@ const ListSummary = () => {
   const [liked, setLiked] = useState("none");
   return (
     <div
-      className="flex flex-col  min-w-fit bg-white rounded-lg border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+      className="flex flex-col min-w-fit bg-white rounded-lg border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 max-w-xs"
       onClick={() => {
         console.log("clicked");
       }}
     >
-      <a href="#">
-        <img className="rounded-lg w-64 lg:w-72" src={image} alt="" />
-      </a>
-      <div className="flex flex-col p-3 space-y-2">
+      <img className="rounded-lg max-w-xs" src={image} alt="" />   
+      <div className="flex flex-col p-3 space-y-2 max-w-md">
         <div className="flex justify-between items-center space-x-5">
           <h1 className="font-bold">Terrasini, Italy</h1>
           <div className="flex ">

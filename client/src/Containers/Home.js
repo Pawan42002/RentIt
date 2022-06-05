@@ -6,7 +6,7 @@ function Home() {
   return (
     <div className="flex flex-col justify-center dark:bg-gray-800">
       {/* The Header*/}
-      <div className="lg:flex-1 pb-5 pt-20 lg:pt-24 font-extrabold text-center justify-center">
+      <div className="px-5 md:px-0 lg:flex-1 pb-5 pt-20 lg:pt-24 font-extrabold text-center justify-center bg-gray-100">
         <h1 className="text-5xl lg:text-6xl dark:text-white">
           The Best Rooms.
         </h1>
@@ -40,8 +40,8 @@ function Home() {
         </div>
       </div>
       {/* Rest of the sections*/}
-      <div className="dark:text-white p-5">
-        <h1 className="font-extrabold text-3xl p-2">Popular Locations</h1>
+      <div className="dark:text-white p-5  rounded-lg mx-2">
+        <h1 className="font-bold text-3xl p-2">Popular Locations</h1>
         <div className="flex flex-row overflow-x-auto my-2 gap-4 no-scrollbar">
           <ListSummary />
           <ListSummary />
