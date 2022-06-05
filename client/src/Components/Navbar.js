@@ -19,7 +19,7 @@ const Navbar = () => {
             <Link to="/">RentIt</Link>
           </li>
         </ul>
-        <ul className="hidden md:flex justify-start space-x-4 font-medium pr-40">
+        <ul className="hidden md:flex justify-start space-x-4 font-medium pr-[4rem]">
           <li className="cursor-pointer hover:text-purple-500">
             <Link to="/">Home</Link>
           </li>

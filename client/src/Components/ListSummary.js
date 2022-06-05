@@ -4,7 +4,12 @@ import Button from "./Button";
 const ListSummary = () => {
   const [liked, setLiked] = useState("none");
   return (
-    <div className="flex flex-col  min-w-fit bg-white rounded-lg border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+    <div
+      className="flex flex-col  min-w-fit bg-white rounded-lg border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+      onClick={() => {
+        console.log("clicked");
+      }}
+    >
       <a href="#">
         <img className="rounded-lg w-64 lg:w-72" src={image} alt="" />
       </a>
