@@ -34,7 +34,6 @@ function Search() {
             <ListSummary />
             <ListSummary />
             <ListSummary />
-
         </div>
       </div>
     </div>
