@@ -7,11 +7,13 @@ import Search from "./Containers/Search";
 import Login from "./Containers/Login";
 import Register from "./Containers/Register";
 import Profile from "./Components/Profile";
+import LNavbar from "./Components/LNavbar";
+import LAddListing from "./Components/LAddListing";
 export default function App() {
   return (
     <>
       <Router>
-        <Navbar />
+        <LNavbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/register" element={<Register />} />
@@ -20,6 +22,7 @@ export default function App() {
           <Route exact path="/favourites" element={<Favourites />} />
           <Route exact path="/about" element={<About />} />
           <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/addListing" element={<LAddListing />} />
         </Routes>
       </Router>
     </>

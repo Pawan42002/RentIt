@@ -141,7 +141,7 @@ function Login() {
               onChange={() => setIsSeller(!isSeller)}
             />
             <label
-              for="checkbox-3"
+              htmlFor="checkbox-3"
               className="text-sm ml-3 font-medium text-gray-900 dark:text-gray-100"
             >
               Are you a seller?
