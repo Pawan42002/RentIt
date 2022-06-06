@@ -1,29 +1,31 @@
 import React from "react";
 import image from "../Assets/image-1.jpg";
+import Button from "./Button";
+import Input from "./Input";
 import ListSummary from "./ListSummary";
+
+
 const Profile = () => {
-  return (
-    <>
-      <div className="flex justify-center px-4 py-5">
-        <div className="flex flex-col justify-center space-y-4">
-          <img src={image} className="max-w-sm" />
-          <div className="flex flex-col font-bold ">
-            <div className="flex justify-center">Pawankumar Nandagiri</div>
-            <div className="flex justify-center">Mumbai</div>
-          </div>
-          <div className="flex flex-col font-medium sm:ml-3 md:ml-0 space-y-4">
-            <div className="flex justify-center">Settings</div>
-            <div className="cursor-pointer sm:px-2 md:px-0">Change Details</div>
-            <hr />
-            <div className="cursor-pointer sm:px-2 md:px-0">
-              Become a Landlord
-            </div>
-            <hr />
-          </div>
-        </div>
-      </div>
-    </>
-  );
+  let containerStyle = "flex flex-col justify-center space-y-4 bg-white mt-5 shadow-md rounded-lg px-10 p-5"
+	return (
+		<div className="bg-gray-100">
+			<div className="flex flex-col max-w-lg  rounded-lg  mx-auto bg-gray-100">
+				<div className={containerStyle + ' pb-10'}>
+          <h1 className="text-2xl text-gray-400 font-bold mx-auto">Profile</h1> 
+					<img src={image} className=" w-32 h-32 mx-auto rounded-full m-2" />
+          <Input label={"NAME"} value={"Manjunath"} placeholder={"Name"}/>
+          <Input label={"PHONE"} value={"8830526885"} placeholder={"Phone Number"}/>
+          <Input label={"EMAIL"} value={"nath.vasam@gmail.com"} placeholder={"Email Id"}/>
+				</div>
+				<div className={containerStyle}>
+					<Button name={"Create a New Listing"}/>
+				</div>
+        <div className={containerStyle}>
+					<h1 className="text-xl text-gray-500">My Listings</h1>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default Profile;
