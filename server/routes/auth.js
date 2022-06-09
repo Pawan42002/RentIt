@@ -9,10 +9,12 @@ const JWT_TOKEN = "pawan";
 router.post("/registerClient", async (req, res) => {
   // register for client
   try {
+    //checking if the email is already in use
     let client = await ClientModel.findOne({ email: req.body.email });
     if (client) {
       return res.status(400).json({ error: "Email id already in use" });
     }
+    // generating salt for bcryption
     const salt = await bcrypt.genSalt(10);
     const secPass = await bcrypt.hash(req.body.password, salt);
     const AddressSchema = {
