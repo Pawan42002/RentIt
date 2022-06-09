@@ -9,6 +9,10 @@ const AddressSchema = new mongoose.Schema({
 });
 
 const ClientSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+  },
   firstName: {
     type: String,
     required: true,

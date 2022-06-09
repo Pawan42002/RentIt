@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const mongoUrl =
-  "mongodb+srv://pawan:pawan@cluster0.yycs5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  "mongodb+srv://pawan:pawan@cluster0.p4unm.mongodb.net/?retryWrites=true&w=majority";
 
 const connectToMongo = () => {
   mongoose.connect(

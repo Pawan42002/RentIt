@@ -20,6 +20,10 @@ const DocumentSchema = new mongoose.Schema({
 });
 
 const LandlordSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+  },
   firstName: {
     type: String,
     required: true,

@@ -19,11 +19,11 @@ app.use(function (req, res, next) {
   next();
 });
 connectToMongo();
-
+app.use("/api/auth", require("./routes/auth"));
 app.get("/", (req, res) => {
   res.send("home");
 });
 
-app.listen(3001, () => {
+app.listen(3005, () => {
   console.log("runs");
 });
