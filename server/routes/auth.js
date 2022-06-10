@@ -29,7 +29,7 @@ router.post("/registerClient", async (req, res) => {
       address: AddressSchema,
       password: secPass,
     });
-    // creating a authtoken using our user's id
+    // creating a authtoken using our client's id
     const data = {
       client: {
         id: client.id,

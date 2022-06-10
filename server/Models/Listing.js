@@ -32,6 +32,10 @@ const DetailsSchema = new mongoose.Schema({
 });
 
 const ListingSchema = new mongoose.Schema({
+  landlord: {
+    type: Schema.Types.ObjectId,
+    ref: "landlord",
+  },
   image: {
     type: [String],
     required: true,
