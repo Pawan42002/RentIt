@@ -51,11 +51,13 @@ const DetailListing = () => {
 			<div className="bg-gray-100 h-screen">
 				<div className="flex flex-col max-w-lg  rounded-lg  mx-auto bg-gray-100">
 					<div>
-						<img src={image} className="p-1 rounded-xl"/>
-            <div className="text-center p-2">
-              <div className="text-xl font-medium">Entire apartment hosted by Polly</div>
-              <p>4 guests1 bedroom2 beds1 bathroom</p>
-            </div>
+						<img src={image} className="p-1 rounded-xl" />
+						<div className="bg-white shadow-md rounded-lg p-3 px-5 mt-1 py-4">
+							<div className="text-xl font-medium">
+								Entire apartment hosted by Polly
+							</div>
+							<div className="text-sm font-light">4 guests1 bedroom2 beds1 bathroom</div>
+						</div>
 					</div>
 					<div className={containerStyle + " pb-5"}>
 						<div className="flex flex-row mb-2">
@@ -68,6 +70,18 @@ const DetailListing = () => {
 								</div>
 							</div>
 						</div>
+
+            <div className="flex flex-row mb-2">
+							<div className="mt-2">{starSVG}</div>
+							<div>
+								<div className="text-xl font-bold p-1">Rent</div>
+								<div className="px-1 text-sm flex flex-row">									
+									<div className="text-xl">$300</div>
+                  <div className="mt-1">/month</div>
+								</div>
+							</div>
+						</div>
+
 
 						<div className="flex flex-row">
 							<div className="mt-2">{locationSVG}</div>

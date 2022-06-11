@@ -11,6 +11,12 @@ import LNavbar from "./Components/LNavbar";
 import LAddListing from "./Components/LAddListing";
 import appState from "./context/appState";
 import DetailListing from "./Containers/DetailListing";
+import ProtectedRoute from "./Components/ProtectedRoute";
+
+const protect = (component) => {
+  return <ProtectedRoute>{component}</ProtectedRoute>
+}
+
 export default function App() {
   return (
     <>
@@ -21,10 +27,10 @@ export default function App() {
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/search" element={<Search />} />
-          <Route exact path="/favourites" element={<Favourites />} />
+          <Route exact path="/favourites" element={protect(<Favourites />)} />
           <Route exact path="/about" element={<About />} />
-          <Route exact path="/profile" element={<Profile />} />
-          <Route exact path="/addListing" element={<LAddListing />} />
+          <Route exact path="/profile" element={protect(<Profile />)} />
+          <Route exact path="/addListing" element={protect(<LAddListing />)} />
           <Route exact path="/listings" element={<DetailListing />} />
         </Routes>
       </Router>
