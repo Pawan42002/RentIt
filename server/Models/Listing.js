@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const AddressSchema = new mongoose.Schema({
-  street: {
+  address: {
     type: String,
     required: true,
   },
@@ -36,7 +36,7 @@ const ListingSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "landlord",
   },
-  image: {
+  images: {
     type: [String],
     required: true,
   },
@@ -47,7 +47,7 @@ const ListingSchema = new mongoose.Schema({
   features: [featureSchema],
   details: {
     type: DetailsSchema,
-    required: true,
+    //required: true,
   },
 });
 
