@@ -1,8 +1,17 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import ListSummary from "../Components/ListSummary";
+import axios from "axios";
+
 function Home() {
   const navigate = useNavigate();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+      
+  }, []);
+  
+
   return (
     <div className="flex flex-col justify-center dark:bg-gray-800">
       {/* The Header*/}

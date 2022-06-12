@@ -18,7 +18,9 @@ app.use(function (req, res, next) {
   );
   next();
 });
+
 connectToMongo();
+
 app.use("/api/auth", require("./routes/auth"));
 app.get("/", (req, res) => {
   res.send("home");

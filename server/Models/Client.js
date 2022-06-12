@@ -34,4 +34,4 @@ const ClientSchema = new mongoose.Schema({
 
 const ClientModel = mongoose.model("client", ClientSchema);
 
-module.exports = ClientModel;
+module.exports = ClientModel

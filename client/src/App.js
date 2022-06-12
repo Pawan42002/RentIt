@@ -14,26 +14,30 @@ import DetailListing from "./Containers/DetailListing";
 import ProtectedRoute from "./Components/ProtectedRoute";
 
 const protect = (component) => {
-  return <ProtectedRoute>{component}</ProtectedRoute>
-}
+	return <ProtectedRoute>{component}</ProtectedRoute>;
+};
+const homeRoutes = ["/", "/home"]
 
 export default function App() {
-  return (
-    <>
-      <Router>
-        <LNavbar />
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/search" element={<Search />} />
-          <Route exact path="/favourites" element={protect(<Favourites />)} />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/profile" element={protect(<Profile />)} />
-          <Route exact path="/addListing" element={protect(<LAddListing />)} />
-          <Route exact path="/listings" element={<DetailListing />} />
-        </Routes>
-      </Router>
-    </>
-  );
+
+	return (
+		<>
+			<Router>
+				<LNavbar />
+				<Routes>
+					{homeRoutes.map((path, index) => (
+						<Route path={path} element={<Home/>} key={index} />
+					))}
+					<Route exact path="/register" element={<Register />} />
+					<Route exact path="/login" element={<Login />} />
+					<Route exact path="/search" element={<Search />} />
+					<Route exact path="/favourites" element={protect(<Favourites />)} />
+					<Route exact path="/about" element={<About />} />
+					<Route exact path="/profile" element={protect(<Profile />)} />
+					<Route exact path="/addListing" element={protect(<LAddListing />)} />
+					<Route exact path="/listings" element={<DetailListing />} />
+				</Routes>
+			</Router>
+		</>
+	);
 }
