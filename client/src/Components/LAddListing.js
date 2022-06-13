@@ -95,30 +95,77 @@ const LAddListing = () => {
               value={zipcode}
               setValue={setZipcode}
             />
-
-            <h1 className="font-bold">Feaures</h1>
-            <Input
-              label={"feature"}
-              placeholder={"feature"}
-              value={currFeature}
-              setValue={setCurrfeature}
-            />
-            <Button
-              name={"Add Feature"}
-              onClick={() => {
-                setFeatures([...features, currFeature]);
-                setCurrfeature("");
-              }}
-            />
-            <div>
-              {features.map((feature) => {
-                return (
-                  <>
-                    <div>{feature}</div>
-                  </>
-                );
-              })}
+            <hr />
+            <h1 className="font-bold">Add a Feature</h1>
+            <div className="flex  justify-center space-x-3">
+              <Input
+                label={"Feature"}
+                placeholder={"Feature"}
+                value={currFeature}
+                setValue={setCurrfeature}
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 mt-9"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+                onClick={() => {
+                  setFeatures([...features, currFeature]);
+                  setCurrfeature("");
+                  console.log("clicked");
+                }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
             </div>
+            {!features.length && (
+              <h1 className="font-bold">No features added</h1>
+            )}
+            {features.length > 0 && (
+              <>
+                <h1 className="font-bold">Listed Features</h1>
+                <div>
+                  {features.map((feature) => {
+                    return (
+                      <>
+                        <div className="flex justify-between  bg-white  shadow-md rounded-lg px-4 p-5 mb-2 ">
+                          <div>{feature}</div>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            onClick={() => {
+                              console.log("clicked");
+                              setFeatures(
+                                features.filter((currF) => {
+                                  return currF != feature;
+                                })
+                              );
+                            }}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                          </svg>
+                        </div>
+                      </>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+            <hr />
             <Button name={"Add Listing"} />
           </div>
         </div>
