@@ -10,6 +10,10 @@ const AddressSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  zipcode: {
+    type: String,
+    required: true,
+  },
 });
 
 const featureSchema = new mongoose.Schema({
@@ -24,8 +28,7 @@ const DetailsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  areaType: {
-    // 1bhk,2bhk type
+  rent: {
     type: String,
     required: true,
   },

@@ -3,20 +3,43 @@ import Input from "./Input";
 import Button from "./Button";
 import TextField from "./TextField";
 import { features } from "process";
-
+import axios from "axios";
+import { query } from "../middleware/query";
 const LAddListing = () => {
   let containerStyle =
     "flex flex-col justify-center space-y-4 bg-white mt-5 shadow-md rounded-lg px-10 p-5";
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  const [area, setArea] = useState("");
-  const [location, setLocation] = useState("");
-  const [rent, setRent] = useState("");
-  const [features, setFeatures] = useState([]);
+  const [address, setAddress] = useState(""); //
+  const [city, setCity] = useState(""); //
+  const [zipcode, setZipcode] = useState(""); //
+  const [area, setArea] = useState(""); //
+  const [location, setLocation] = useState(""); //
+  const [rent, setRent] = useState(""); //
+  const [features, setFeatures] = useState([]); //
   const [currFeature, setCurrfeature] = useState("");
-  const handleSubmit = () => {
-    let images = ["", ""];
+  const [images, setImages] = useState([]); //
+  const handleSubmit = async () => {
+    // call middleware
+    // create object
+    const details = {
+      area,
+      rent,
+    };
+    const address = {
+      address,
+      city,
+      zipcode,
+    };
+    // main object to be passed
+    const props = {
+      images,
+      features,
+      details,
+      address,
+    };
+    const res = await query("api/listings/addListing", props);
+    if (res) {
+      alert("Listing added");
+    }
   };
   return (
     <>
@@ -112,9 +135,10 @@ const LAddListing = () => {
                 stroke="currentColor"
                 strokeWidth={2}
                 onClick={() => {
-                  setFeatures([...features, currFeature]);
-                  setCurrfeature("");
-                  console.log("clicked");
+                  if (currFeature != "") {
+                    setFeatures([...features, currFeature]);
+                    setCurrfeature("");
+                  }
                 }}
               >
                 <path
@@ -144,7 +168,6 @@ const LAddListing = () => {
                             stroke="currentColor"
                             strokeWidth={2}
                             onClick={() => {
-                              console.log("clicked");
                               setFeatures(
                                 features.filter((currF) => {
                                   return currF != feature;
@@ -166,7 +189,7 @@ const LAddListing = () => {
               </>
             )}
             <hr />
-            <Button name={"Add Listing"} />
+            <Button name={"Add Listing"} onClick={handleSubmit} />
           </div>
         </div>
       </div>
