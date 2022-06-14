@@ -37,7 +37,7 @@ const LAddListing = () => {
 			details,
 			address,
 		};
-		const res = await query("api/listings/addListing", props);
+		const res = await query("POST", "api/listings/addListing", props, true);
 		if (res) {
 			alert("Listing added");
 		}
