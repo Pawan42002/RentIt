@@ -1,6 +1,6 @@
 import React from "react";
 
-const temp_app = () => {
+const Temp_app = () => {
   return (
     <div className="flex flex-col h-screen bg-white">
       <Router>
