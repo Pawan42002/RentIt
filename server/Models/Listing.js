@@ -57,6 +57,10 @@ const ListingSchema = new mongoose.Schema({
     type: DetailsSchema,
     required: true,
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const ListingModel = mongoose.model("listing", ListingSchema);
