@@ -50,7 +50,7 @@ const ListingSchema = new mongoose.Schema({
   features: [featureSchema],
   details: {
     type: DetailsSchema,
-    //required: true,
+    required: true,
   },
 });
 

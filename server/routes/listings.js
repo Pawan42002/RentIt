@@ -25,3 +25,5 @@ router.post("/addListing", fetchUser, async (req, res) => {
     res.status(500).send("Error occured!");
   }
 });
+
+module.exports = router;
