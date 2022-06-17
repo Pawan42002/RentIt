@@ -8,7 +8,7 @@ import { query } from "../middleware/query";
 const LAddListing = () => {
   let containerStyle =
     "flex flex-col justify-center space-y-4 bg-white mt-5 shadow-md rounded-lg px-10 p-5";
-  const [address, setAddress] = useState(""); //
+  const [street, setStreet] = useState(""); //
   const [city, setCity] = useState(""); //
   const [zipcode, setZipcode] = useState(""); //
   const [area, setArea] = useState(""); //
@@ -31,7 +31,7 @@ const LAddListing = () => {
       rent,
     };
     const address = {
-      //address,
+      street,
       city,
       zipcode,
     };
@@ -151,10 +151,10 @@ const LAddListing = () => {
             <hr />
             <h1 className="font-bold">Address</h1>
             <TextField
-              label={"Address"}
-              placeholder={"Address"}
-              value={address}
-              setValue={setAddress}
+              label={"Street"}
+              placeholder={"Street"}
+              value={street}
+              setValue={setStreet}
             />
             <Input
               label={"City"}
