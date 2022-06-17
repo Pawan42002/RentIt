@@ -7,8 +7,15 @@ const BusinessLogin = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const handleSubmit = () => {
-    console.log("clicked");
+  const handleSubmit = async () => {
+    // call middleware
+    const props = {
+      email,
+      password,
+    };
+    let res = await query("POST", "api/businessAuth/loginLandlord", props);
+    console.log(res);
+    if (res) navigate("/");
   };
   return (
     <>

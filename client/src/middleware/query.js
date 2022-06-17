@@ -2,9 +2,9 @@ import axios from "axios";
 import React from "react";
 
 export const query = async (requestType, endpoint, props, headers = false) => {
+  const token = "";
   let link = "http://localhost:3005/" + endpoint;
   let response = null;
-  const token = "";
   if (requestType == "GET") {
     if (headers) {
       response = await axios.get(link, props, {

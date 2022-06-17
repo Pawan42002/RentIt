@@ -57,7 +57,11 @@ const BusinessRegister = () => {
       lastName,
       address: add1,
     };
-    let response = await query("POST", "api/auth/registerClient", props);
+    let response = await query(
+      "POST",
+      "api/businessAuth/registerLandlord",
+      props
+    );
     if (response) {
       console.log(response);
       navigate("/");

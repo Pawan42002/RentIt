@@ -65,8 +65,9 @@ router.post("/clientLogin", async (req, res) => {
       return res.status(401).json({ errors: "Bad credentials" });
     }
     const data = {
-      client: {
+      user: {
         id: client.id,
+        isLandlord: false,
       },
     };
     //sending authtoken

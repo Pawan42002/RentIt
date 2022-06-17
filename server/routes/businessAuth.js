@@ -45,4 +45,37 @@ router.post("/registerLandlord", async (req, res) => {
   }
 });
 
+router.post("/loginLandlord", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    // finding a user with the given email
+    let landlord = await LandlordModel.findOne({ email: req.body.email });
+    // if the user with the given email doesnt exist then we will return;
+    if (!landlord) {
+      return res.status(401).json({ error: "Bad credentials" });
+    }
+    // checking the password with the password in the database
+    const passwordCompare = await bcrypt.compare(
+      req.body.password,
+      landlord.password
+    );
+    // if wrong password
+    if (!passwordCompare) {
+      return res.status(401).json({ errors: "Bad credentials" });
+    }
+    const data = {
+      user: {
+        id: landlord.id,
+        isLandlord: true,
+      },
+    };
+    //sending authtoken
+    const token = jwt.sign(data, JWT_TOKEN);
+    res.json({ token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "some error occured here" });
+  }
+});
+
 module.exports = router;
