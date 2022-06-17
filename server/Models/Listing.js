@@ -19,6 +19,7 @@ const AddressSchema = new mongoose.Schema({
 const featureSchema = new mongoose.Schema({
   feature: {
     type: String,
+    required: true,
   },
 });
 
@@ -37,7 +38,7 @@ const DetailsSchema = new mongoose.Schema({
 const ListingSchema = new mongoose.Schema({
   landlord: {
     type: Schema.Types.ObjectId,
-    ref: "landlord",
+    ref: "landlords",
   },
   images: {
     type: [String],
@@ -45,9 +46,13 @@ const ListingSchema = new mongoose.Schema({
   },
   address: {
     type: AddressSchema,
-    required: true,
+    //required: true,
   },
-  features: [featureSchema],
+  features: [
+    {
+      type: String,
+    },
+  ],
   details: {
     type: DetailsSchema,
     required: true,

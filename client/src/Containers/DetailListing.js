@@ -3,7 +3,7 @@ import image from "../Assets/image-1.jpg";
 const starSVG = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    class="h-6 w-6"
+    className="h-6 w-6"
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -11,7 +11,7 @@ const starSVG = (
   >
     <path
       strokeLinecap="round"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
       d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
     />
   </svg>
@@ -20,14 +20,14 @@ const starSVG = (
 const locationSVG = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    class="h-5 w-5"
+    className="h-5 w-5"
     viewBox="0 0 20 20"
     fill="currentColor"
   >
     <path
-      fill-rule="evenodd"
+      fillRule="evenodd"
       d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-      clip-rule="evenodd"
+      clipRule="evenodd"
     />
   </svg>
 );
@@ -35,7 +35,7 @@ const locationSVG = (
 const phoneSVG = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    class="h-5 w-5"
+    className="h-5 w-5"
     viewBox="0 0 20 20"
     fill="currentColor"
   >

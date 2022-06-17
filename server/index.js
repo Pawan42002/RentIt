@@ -23,10 +23,11 @@ connectToMongo();
 
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/listings", require("./routes/listings"));
+
+app.use("/api/businessAuth", require("./routes/businessAuth"));
 app.get("/", (req, res) => {
   res.send("home");
 });
-app.use("/api/businessAuth", require("./routes/businessAuth"));
 app.listen(3005, () => {
   console.log("runs");
 });
