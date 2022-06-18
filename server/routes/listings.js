@@ -31,4 +31,13 @@ router.post("/addListing", fetchUser, async (req, res) => {
   }
 });
 
+router.get("/getListings", fetchUser, async (req, res) => {
+  try {
+    const myListings = await ListingModel.find({ landlord: req.user.id });
+    res.send(myListings);
+  } catch (error) {
+    res.json("Error");
+  }
+});
+
 module.exports = router;

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const query = async (requestType, endpoint, props, headers = false) => {
   const token = localStorage.getItem("token"); // just for adding listings
@@ -7,13 +8,13 @@ export const query = async (requestType, endpoint, props, headers = false) => {
   let response = null;
   if (requestType == "GET") {
     if (headers) {
-      response = await axios.get(link, props, {
+      response = await axios.get(link, {
         headers: {
           "auth-token": token,
         },
       });
     } else {
-      response = await axios.get(link, props);
+      response = await axios.get(link);
     }
   } else if (requestType == "POST") {
     if (headers) {

@@ -14,6 +14,7 @@ import DetailListing from "./Containers/DetailListing";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import BusinessLogin from "./Containers/BusinessLogin";
 import BusinessRegister from "./Containers/BusinessRegister";
+import MyListings from "./Components/MyListings";
 const protect = (component) => {
   return <ProtectedRoute>{component}</ProtectedRoute>;
 };
@@ -41,7 +42,7 @@ export default function App() {
           <Route exact path="/about" element={<About />} />
           <Route exact path="/profile" element={protect(<Profile />)} />
           <Route exact path="/addListing" element={protect(<LAddListing />)} />
-          <Route exact path="/listings" element={<DetailListing />} />
+          <Route exact path="/listings" element={<MyListings />} />
         </Routes>
       </Router>
     </>
