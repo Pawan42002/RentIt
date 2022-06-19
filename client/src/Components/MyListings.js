@@ -15,7 +15,6 @@ const MyListings = () => {
       })
       .then((res) => {
         setListings(res.data);
-        console.log(listings);
       })
       .catch((err) => {
         console.log(err);
@@ -26,12 +25,18 @@ const MyListings = () => {
   }, []);
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 mx-auto justify-items-center gap-x-4 gap-y-4 max-w-fit mt-5">
-        <ListSummary />
-        <ListSummary />
-        <ListSummary />
-        <ListSummary />
-      </div>
+      {listings.length === 0 && (
+        <>
+          <div>HEY THERE</div>
+        </>
+      )}
+      {listings.length > 0 && (
+        <>
+          {listings.map((listing) => {
+            return <div>Hey</div>;
+          })}
+        </>
+      )}
     </div>
   );
 };
