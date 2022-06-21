@@ -10,14 +10,9 @@ router.post("/addListing", fetchUser, async (req, res) => {
   try {
     const checkAccess = req.user.isLandlord;
     if (!checkAccess) {
-      res.status(401).send("Unauthorized");
+      res.sendStatus(403);
     }
-
     const { address, images, features, details } = req.body;
-    console.log(images);
-    console.log(features);
-    console.log(details);
-    console.log(address);
     const listing = await ListingModel.create({
       landlord: req.user.id,
       images,
@@ -27,7 +22,7 @@ router.post("/addListing", fetchUser, async (req, res) => {
     });
     res.send(listing);
   } catch (err) {
-    res.status(500).send("Error occured! here");
+    res.sendStatus(403);
   }
 });
 

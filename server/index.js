@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const connectToMongo = require("./db");
+const cookieParser = require("cookie-parser");
 const app = express();
 const cors = require("cors");
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
 app.use(function (req, res, next) {

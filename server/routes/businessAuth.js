@@ -38,7 +38,12 @@ router.post("/registerLandlord", async (req, res) => {
     };
     //sending authtoken
     const token = jwt.sign(data, JWT_TOKEN);
-    res.json({ token });
+    return res
+      .cookie("access_token", token, {
+        httpOnly: true,
+        //secure: process.env.NODE_ENV === "production",
+      })
+      .json({ message: "Registered successfully 😊 👌" });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("error occured here");
@@ -71,7 +76,12 @@ router.post("/loginLandlord", async (req, res) => {
     };
     //sending authtoken
     const token = jwt.sign(data, JWT_TOKEN);
-    res.json({ token });
+    return res
+      .cookie("access_token", token, {
+        httpOnly: true,
+        //secure: process.env.NODE_ENV === "production",
+      })
+      .json({ message: "Logged in successfully 😊 👌" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "some error occured here" });
