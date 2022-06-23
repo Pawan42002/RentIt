@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import image from "../Assets/image-1.jpg";
 import Button from "./Button";
-const ListSummary = () => {
+const ListSummary = (props) => {
   const [liked, setLiked] = useState("none");
   return (
     <div
@@ -10,7 +10,7 @@ const ListSummary = () => {
         console.log("clicked");
       }}
     >
-      <img className="rounded-lg max-w-xs" src={image} alt="" />   
+      <img className="rounded-lg max-w-xs" src={image} alt="" />
       <div className="flex flex-col p-3 space-y-2 max-w-md">
         <div className="flex justify-between items-center space-x-5">
           <h1 className="font-bold">Terrasini, Italy</h1>
