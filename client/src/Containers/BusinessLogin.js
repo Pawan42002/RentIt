@@ -14,7 +14,6 @@ const BusinessLogin = () => {
       password,
     };
     let res = await query("POST", "api/businessAuth/loginLandlord", props);
-    localStorage.setItem("token", res.data.token);
     if (res) navigate("/");
   };
   return (

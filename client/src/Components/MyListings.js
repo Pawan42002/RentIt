@@ -6,23 +6,17 @@ const MyListings = () => {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const getListings = async () => {
-    const token = localStorage.getItem("token");
-    axios
-      .get("http://localhost:3005/api/listings/getListings", {
-        headers: {
-          "auth-token": token,
-        },
-      })
-      .then((res) => {
-        setListings(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const res = await axios.get("/api/listings/getListings");
+    console.log(res);
+    setListings(res);
+    setLoading(false);
   };
   useEffect(() => {
     getListings();
   }, []);
+  if (loading) {
+    return <>Hi</>;
+  }
   return (
     <div>
       {listings.length === 0 && (
