@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { query } from "../middleware/query";
+import { query } from "../../middleware/query";
 
 // import axios from "axios";
 
@@ -69,7 +69,7 @@ function Register() {
 
 	return (
 		<div className="h-auto flex flex-col flex-grow items-center justify-center bg-gray-100 dark:text-white dark:bg-gray-800">
-			<div className="mt-5 flex flex-col bg-white dark:bg-gray-700 dark:text-white justify-center shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-lg w-50 max-w-md">
+			<div className="mt-5 flex flex-col bg-white dark:bg-gray-700 dark:text-white justify-center shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-lg w-50 max-w-md mx-3">
 				<div className="font-medium self-center text-xl sm:text-3xl text-gray-800 dark:text-white">
 					Welcome!
 				</div>

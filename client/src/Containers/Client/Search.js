@@ -1,5 +1,5 @@
 import React from "react";
-import ListSummary from "../Components/ListSummary";
+import ListSummary from "../../Components/ListSummary";
 
 function Search() {
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { query } from "../middleware/query";
+import { query } from "../../middleware/query";
 
 const BusinessLogin = () => {
   const [email, setEmail] = useState("");

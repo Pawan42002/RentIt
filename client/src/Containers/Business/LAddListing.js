@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Input from "./Input";
-import Button from "./Button";
-import TextField from "./TextField";
+import Input from "../../Components/Input";
+import Button from "../../Components/Button";
+import TextField from "../../Components/TextField";
 import { features } from "process";
-import { query } from "../middleware/query";
+import { query } from "../../middleware/query";
 
 const LAddListing = () => {
   let containerStyle =

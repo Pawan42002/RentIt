@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { query } from "../middleware/query";
-import ListSummary from "./ListSummary";
+import { query } from "../../middleware/query";
+import ListSummary from "../../Components/ListSummary";
 const MyListings = () => {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);

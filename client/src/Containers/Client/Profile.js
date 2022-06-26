@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import image from "../Assets/image-1.jpg";
-import Button from "./Button";
-import Input from "./Input";
-import ListSummary from "./ListSummary";
+import image from "../../Assets/image-1.jpg";
+import Button from "../../Components/Button";
+import Input from "../../Components/Input";
+import ListSummary from "../../Components/ListSummary";
 
 const Profile = () => {
 	let containerStyle =
