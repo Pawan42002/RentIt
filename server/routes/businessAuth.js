@@ -88,4 +88,16 @@ router.post("/loginLandlord", async (req, res) => {
   }
 });
 
+router.get("/verifyLandlord", fetchUser, async (req, res) => {
+  try {
+    if (req.user.isLandlord) {
+      res.json(true);
+    } else {
+      res.json(false);
+    }
+  } catch (error) {
+    res.status(500).json({ error: "some error occured here" });
+  }
+});
+
 module.exports = router;

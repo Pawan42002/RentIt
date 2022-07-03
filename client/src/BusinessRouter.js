@@ -8,21 +8,21 @@ import BusinessRegister from "./Containers/Business/BusinessRegister";
 import Home from "./Containers/Home";
 
 function BusinessRouter() {
-	return (
-		<>
-			<LNavbar />
-			<Routes>
-				<Route path="/b">
-					<Route element={<LNavbar />} />
-					<Route path="/b/home" element={<Home />} />
-					<Route path="/b/register" element={<BusinessRegister />} />
-					<Route path="/b/login" element={<BusinessLogin />} />
-					<Route path="/b/addlisting" element={<LAddListing />} />
-					<Route path="/b/mylistings" element={<MyListings />} />
-				</Route>
-			</Routes>
-		</>
-	);
+  return (
+    <>
+      <LNavbar />
+      <Routes>
+        <Route path="/b">
+          <Route element={<LNavbar />} />
+          <Route path="/b/home" element={<Home />} />
+          <Route path="/b/register" element={<BusinessRegister />} />
+          <Route path="/b/login" element={<BusinessLogin />} />
+          <Route path="/b/addlisting" element={<LAddListing />} />
+          <Route path="/b/mylistings" element={<MyListings />} />
+        </Route>
+      </Routes>
+    </>
+  );
 }
 
 export default BusinessRouter;
