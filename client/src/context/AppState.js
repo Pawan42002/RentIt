@@ -6,16 +6,16 @@ function AppState(props) {
 	const [userData, setUserData] = useState({});
 	const [loading, setLoading] = useState(true);
 
+  const getData = async () => {
+    query("GET", "getUserData")
+      .then((res) => {
+        if (res.data == "no token found") setUserData(null);
+        else setUserData(res.data);
+        setLoading(false);
+      })
+      .catch((e) => console.log(e));
+  };
 	useEffect(() => {
-		const getData = async () => {
-			query("GET", "getUserData")
-				.then((res) => {
-					if (res.data == "no token found") setUserData(null);
-					else setUserData(res.data);
-					setLoading(false);
-				})
-				.catch((e) => console.log(e));
-		};
 		getData();
 	}, []);
 

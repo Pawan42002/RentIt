@@ -15,8 +15,8 @@ const Navbar = () => {
 			setIsopen(true);
 		}
 	};
-	if (userData.isLandlord) {
-		return <LNavbar />;
+	if (userData && userData.isLandlord) {
+		return <LNavbar />
 	}
 	return (
 		<div className="max-w-full shadow-md">

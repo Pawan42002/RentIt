@@ -8,7 +8,6 @@ const MyListings = () => {
 	const [loading, setLoading] = useState(true);
 	const getListings = async () => {
 		const res = await axios.get("/api/listings/getListings");
-		console.log(res.data);
 		setListings(res.data);
 		setLoading(false);
 	};
