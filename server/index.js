@@ -38,7 +38,7 @@ app.get("/getUserData", fetchUser, async (req, res) => {
 });
 
 app.post("/logout", async (req, res) => {
-  res.clearCookie();
+  res.clearCookie("access_token");
   res.send("Logout successful");
 });
 
