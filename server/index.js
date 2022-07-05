@@ -10,16 +10,16 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
+	res.header("Access-Control-Allow-Origin", "*");
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, OPTIONS, PUT, PATCH, DELETE"
+	);
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
+	next();
 });
 
 connectToMongo();
@@ -29,13 +29,14 @@ app.use("/api/listings", require("./routes/listings"));
 
 app.use("/api/businessAuth", require("./routes/businessAuth"));
 app.get("/", (req, res) => {
-  res.send("home");
+	res.send("home");
 });
 
 app.get("/getUserData", fetchUser, async (req, res) => {
-  res.send(req.user.isLandlord);
+	console.log("here");
+	res.send({ isLandlord: req.user.isLandlord });
 });
 
 app.listen(3005, () => {
-  console.log("Running on port 3005");
+	console.log("Running on port 3005");
 });

@@ -14,7 +14,7 @@ const BusinessLogin = () => {
 			password,
 		};
 		let res = await query("POST", "api/businessAuth/loginLandlord", props);
-		if (res) navigate("/");
+		if (res) navigate("/b/");
 	};
 	return (
 		<>
