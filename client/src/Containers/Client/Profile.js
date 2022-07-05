@@ -4,11 +4,23 @@ import image from "../../Assets/image-1.jpg";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
 import ListSummary from "../../Components/ListSummary";
+import { query } from "../../middleware/query";
 
 const Profile = () => {
+	const navigate = useNavigate();
 	let containerStyle =
 		"flex flex-col justify-center space-y-4 bg-white mt-5 shadow-md rounded-lg px-10 p-5";
-	const navigate = useNavigate();
+	const handleLogout = () => {
+		query("POST", "logout")
+			.then((res) => {
+				if (res.data == "success") {
+					navigate("/home");
+				} else {
+					window.alert("Cannot logout");
+				}
+			})
+			.catch((e) => console.log("error" + e));
+	};
 	return (
 		<div className="bg-gray-100">
 			<div className="flex flex-col max-w-lg  rounded-lg  mx-auto bg-gray-100">
@@ -26,6 +38,7 @@ const Profile = () => {
 						value={"nath.vasam@gmail.com"}
 						placeholder={"Email Id"}
 					/>
+					<Button name={"Logout"} onClick={handleLogout} />
 				</div>
 				<div className={containerStyle}>
 					<Button
