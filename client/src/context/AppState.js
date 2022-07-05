@@ -5,18 +5,20 @@ import Spinner from "../Components/Spinner";
 function AppState(props) {
 	const [userData, setUserData] = useState({});
 	const [loading, setLoading] = useState(true);
+
 	useEffect(() => {
 		const getData = async () => {
 			query("GET", "getUserData")
 				.then((res) => {
-					setUserData(res.data);
+					if (res.data == "no token found") setUserData(null);
+					else setUserData(res.data);
 					setLoading(false);
 				})
 				.catch((e) => console.log(e));
 		};
-		console.log("ererer");
 		getData();
 	}, []);
+
 	if (loading) {
 		return <Spinner />;
 	}

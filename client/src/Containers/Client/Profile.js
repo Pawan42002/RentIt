@@ -13,7 +13,7 @@ const Profile = () => {
 	const handleLogout = () => {
 		query("POST", "logout")
 			.then((res) => {
-				if (res.data == "success") {
+				if (res.data == "Logout successful") {
 					navigate("/home");
 				} else {
 					window.alert("Cannot logout");
