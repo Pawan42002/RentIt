@@ -10,7 +10,6 @@ import Home from "./Containers/Home";
 function BusinessRouter() {
   return (
     <>
-      <LNavbar />
       <Routes>
         <Route path="/b">
           <Route element={<LNavbar />} />

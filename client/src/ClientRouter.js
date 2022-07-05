@@ -11,7 +11,6 @@ import UserLoginRequired from "./Containers/UserLoginRequired";
 function ClientRouter() {
 	return (
 		<>
-			<Navbar />
 			<Routes>
 				<Route>
 					<Route exact path="/" element={<UserLoginRequired />} />
