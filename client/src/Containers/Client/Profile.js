@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import image from "../../Assets/image-1.jpg";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
 import ListSummary from "../../Components/ListSummary";
 import { query } from "../../middleware/query";
-
+import appContext from "../../context/appContext";
 const Profile = () => {
+  const { setUserData } = useContext(appContext);
   const navigate = useNavigate();
   let containerStyle =
     "flex flex-col justify-center space-y-4 bg-white mt-5 shadow-md rounded-lg px-10 p-5";
@@ -14,6 +15,7 @@ const Profile = () => {
     query("POST", "logout")
       .then((res) => {
         if (res.data == "Logout successful") {
+          setUserData(null);
           navigate("/home");
         } else {
           window.alert("Cannot logout");
@@ -39,14 +41,6 @@ const Profile = () => {
             placeholder={"Email Id"}
           />
           <Button name={"Logout"} onClick={handleLogout} />
-        </div>
-        <div className={containerStyle}>
-          <Button
-            name={"Create a New Listing"}
-            onClick={() => {
-              navigate("/addListing");
-            }}
-          />
         </div>
       </div>
     </div>

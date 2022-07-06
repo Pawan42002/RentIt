@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import appContext from "../context/appContext";
 import UserLoginRequired from "../Containers/UserLoginRequired";
-function ProtectedRoute({ children }) {
+function ProtectedBusinessRoute({ children }) {
   const context = useContext(appContext);
   const { userData } = context;
-  if (!userData) {
-    return <UserLoginRequired path="/login" />;
+  if (!userData || !userData.isLandlord) {
+    return <UserLoginRequired path="/b/login" />;
   }
   return children;
 }
 
-export default ProtectedRoute;
+export default ProtectedBusinessRoute;
