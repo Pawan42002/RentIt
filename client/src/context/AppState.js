@@ -2,9 +2,10 @@ import appContext from "./appContext";
 import React, { useState, useEffect } from "react";
 import { query } from "../middleware/query";
 import Spinner from "../Components/Spinner";
+
 function AppState(props) {
-	const [userData, setUserData] = useState({});
-	const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const getData = async () => {
     query("GET", "getUserData")
@@ -15,20 +16,20 @@ function AppState(props) {
       })
       .catch((e) => console.log(e));
   };
-	useEffect(() => {
-		getData();
-	}, []);
+  useEffect(() => {
+    getData();
+  }, []);
 
-	if (loading) {
-		return <Spinner />;
-	}
-	return (
-		<>
-			<appContext.Provider value={{ userData }}>
-				{props.children}
-			</appContext.Provider>
-		</>
-	);
+  if (loading) {
+    return <Spinner />;
+  }
+  return (
+    <>
+      <appContext.Provider value={{ userData, setUserData }}>
+        {props.children}
+      </appContext.Provider>
+    </>
+  );
 }
 
 export default AppState;
