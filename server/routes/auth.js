@@ -44,7 +44,7 @@ router.post("/registerClient", async (req, res) => {
         httpOnly: true,
         //secure: process.env.NODE_ENV === "production",
       })
-      .json({ message: "Registered successfully 😊 👌" });
+      .json({ email: client.email, isLandlord: false });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("error occured here");
@@ -82,7 +82,7 @@ router.post("/clientLogin", async (req, res) => {
         httpOnly: true,
         //secure: process.env.NODE_ENV === "production",
       })
-      .json({ message: "Logged in successfully 😊 👌" });
+      .json({ email: client.email, isLandlord: false });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "some error occured here" });

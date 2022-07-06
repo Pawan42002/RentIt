@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-
+import appContext from "../context/appContext";
+import UserLoginRequired from "../Containers/UserLoginRequired";
 function ProtectedRoute({ children }) {
-  let user = "hello";
-  if (!user) {
-    return <Navigate to="/login" replace />;
+  const context = useContext(appContext);
+  const { userData } = context;
+  if (!userData) {
+    return <UserLoginRequired />;
   }
   return children;
 }
