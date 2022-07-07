@@ -26,6 +26,7 @@ connectToMongo();
 
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/listings", require("./routes/listings"));
+app.use("/api/subscribe", require("./routes/subscribe"));
 
 app.use("/api/businessAuth", require("./routes/businessAuth"));
 app.get("/", (req, res) => {
@@ -33,7 +34,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/getUserData", fetchUser, async (req, res) => {
-	console.log("here");
+	
 	res.send({ isLandlord: req.user.isLandlord });
 });
 

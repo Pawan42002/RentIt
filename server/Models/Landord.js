@@ -37,6 +37,10 @@ const LandlordSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isSubscribed: {
+    type: Boolean,
+    default: false,
+  },
   verification: [DocumentSchema],
   date: {
     type: Date,
