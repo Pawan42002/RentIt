@@ -7,6 +7,7 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import Login from "./Containers/Client/Login";
 import Navbar from "./Components/Navbar";
 import AppState from "./context/AppState";
+import { ToastContainer } from "react-toastify";
 const protect = (component) => {
 	return <ProtectedRoute>{component}</ProtectedRoute>;
 };
@@ -14,6 +15,7 @@ const homeRoutes = ["/", "/home"];
 export default function App() {
 	return (
 		<AppState>
+
 			<Router>
 				<Navbar />
 				<BusinessRouter />
