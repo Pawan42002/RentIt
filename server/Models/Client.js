@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+const ListingModel = new mongoose.Schema({
+  listing: { type: String },
+});
 const AddressSchema = new mongoose.Schema({
   city: {
     type: String,
@@ -30,6 +32,7 @@ const ClientSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  favourites: [ListingModel],
   date: {
     type: Date,
     default: Date.now,
@@ -38,4 +41,4 @@ const ClientSchema = new mongoose.Schema({
 
 const ClientModel = mongoose.model("client", ClientSchema);
 
-module.exports = ClientModel
+module.exports = ClientModel;
