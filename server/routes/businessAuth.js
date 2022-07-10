@@ -34,7 +34,7 @@ router.post("/registerLandlord", async (req, res) => {
       user: {
         id: landlord.id,
         isLandlord: true,
-        isSubscribed: false
+        isSubscribed: false,
       },
     };
     //sending authtoken
@@ -55,7 +55,7 @@ router.post("/loginLandlord", async (req, res) => {
   try {
     const { email, password } = req.body;
     // finding a user with the given email
-    let landlord = await LandlordModel.findOne({ email: req.body.email });  
+    let landlord = await LandlordModel.findOne({ email: req.body.email });
     // if the user with the given email doesnt exist then we will return;
     if (!landlord) {
       return res.status(401).json({ error: "Bad credentials" });
@@ -71,9 +71,9 @@ router.post("/loginLandlord", async (req, res) => {
     }
     const data = {
       user: {
-        id: landlord.id,
+        id: landlord._id,
         isLandlord: true,
-        isSubscribed: landlord.isSubscribed
+        isSubscribed: landlord.isSubscribed,
       },
     };
     //sending authtoken

@@ -11,6 +11,7 @@ router.post("/addListing", fetchUser, async (req, res) => {
   try {
     const checkAccess = req.user.isLandlord;
     if (!checkAccess) {
+      console.log("here");
       res.sendStatus(403);
     }
     const { address, images, features, details } = req.body;

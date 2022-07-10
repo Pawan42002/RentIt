@@ -23,6 +23,17 @@ const featureSchema = new mongoose.Schema({
   },
 });
 
+const imageSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  url: {
+    type: String,
+    required: true,
+  },
+});
+
 const DetailsSchema = new mongoose.Schema({
   // flat details
   area: {
@@ -40,10 +51,7 @@ const ListingSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "landlords",
   },
-  images: {
-    type: [String],
-    required: true,
-  },
+  images: [imageSchema],
   address: {
     type: AddressSchema,
     //required: true,
