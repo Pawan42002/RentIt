@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import image from "../Assets/image-1.jpg";
+import appContext from "../context/appContext";
+import UserLoginRequired from "../Containers/UserLoginRequired";
 import Button from "./Button";
+import { ToastContainer, toast } from "react-toastify";
+import { query } from "../middleware/query";
 const ListSummary = (props) => {
   const [liked, setLiked] = useState("none");
+  const { userData } = useContext(appContext);
   return (
-    <div
-      className="flex flex-col min-w-fit bg-white rounded-lg border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 max-w-xs"
-      onClick={() => {
-        console.log("clicked");
-      }}
-    >
+    <div className="flex flex-col min-w-fit bg-white rounded-lg border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 max-w-xs">
       <img className="rounded-lg max-w-xs" src={image} alt="" />
       <div className="flex flex-col p-3 space-y-2 max-w-md">
         <div className="flex justify-between items-center space-x-5">
@@ -68,11 +68,19 @@ const ListSummary = (props) => {
         <div className="flex justify-between items-center">
           <h1>$10,000 pm</h1>
           <button
-            onClick={() => {
-              if (liked === "none") {
-                setLiked("red"); // code to edit the like button
+            onClick={async () => {
+              if (!userData) {
+                console.log("login to like");
+                toast("Login to like ");
               } else {
-                setLiked("none");
+                if (liked === "none") {
+                  setLiked("red"); // code to edit the like button
+                  await query("POST", "api/listings/addToLiked", {
+                    id: props._id,
+                  });
+                } else {
+                  setLiked("none");
+                }
               }
             }}
           >

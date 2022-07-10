@@ -15,7 +15,6 @@ const homeRoutes = ["/", "/home"];
 export default function App() {
 	return (
 		<AppState>
-
 			<Router>
 				<Navbar />
 				<BusinessRouter />

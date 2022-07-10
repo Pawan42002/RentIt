@@ -7,7 +7,7 @@ export const query = async (requestType, endpoint, props) => {
   let link = "/" + endpoint;
   let response = null;
   if (requestType == "GET") {
-    response = await axios.get(link);
+    response = await axios.get(link, props);
   } else if (requestType == "POST") {
     response = await axios.post(link, props);
   }
