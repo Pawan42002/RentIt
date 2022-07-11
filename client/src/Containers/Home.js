@@ -12,6 +12,8 @@ function Home() {
     const getListings = async () => {
       const response = await query("GET", "api/listings/allListings");
       setListings(response.data);
+      // console.log(response.data);
+      //console.log(listings);
       setLoading(false);
     };
     getListings();

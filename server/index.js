@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/getUserData", fetchUser, async (req, res) => {
-  res.send({ isLandlord: req.user.isLandlord });
+  res.send({ id: req.user.id, isLandlord: req.user.isLandlord });
 });
 
 app.post("/logout", async (req, res) => {

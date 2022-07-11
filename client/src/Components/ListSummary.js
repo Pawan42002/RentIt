@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import image from "../Assets/image-1.jpg";
 import appContext from "../context/appContext";
 import UserLoginRequired from "../Containers/UserLoginRequired";
@@ -7,7 +7,15 @@ import { ToastContainer, toast } from "react-toastify";
 import { query } from "../middleware/query";
 const ListSummary = (props) => {
   const [liked, setLiked] = useState("none");
-  const { userData } = useContext(appContext);
+  const { userData, favourites, setFavourites } = useContext(appContext);
+  const { listing, inFavPage } = props;
+  useEffect(() => {
+    if (userData) {
+      if (listing.likes.includes(userData.id)) {
+        setLiked("red");
+      }
+    }
+  }, []);
   return (
     <div className="flex flex-col min-w-fit bg-white rounded-lg border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 max-w-xs">
       <img className="rounded-lg max-w-xs" src={image} alt="" />
@@ -75,11 +83,22 @@ const ListSummary = (props) => {
               } else {
                 if (liked === "none") {
                   setLiked("red"); // code to edit the like button
+
                   await query("POST", "api/listings/addToLiked", {
-                    id: props._id,
+                    id: props.listing._id,
                   });
                 } else {
-                  setLiked("none");
+                  if (!inFavPage) {
+                    setLiked("none");
+                  }
+                  setFavourites(
+                    favourites.filter((favourite) => {
+                      return favourite._id != listing._id;
+                    })
+                  );
+                  await query("POST", "api/listings/unlike", {
+                    id: props.listing._id,
+                  });
                 }
               }
             }}

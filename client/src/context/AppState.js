@@ -6,7 +6,7 @@ import Spinner from "../Components/Spinner";
 function AppState(props) {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
-
+  const [favourites, setFavourites] = useState([]);
   const getData = async () => {
     query("GET", "getUserData")
       .then((res) => {
@@ -25,7 +25,9 @@ function AppState(props) {
   }
   return (
     <>
-      <appContext.Provider value={{ userData, setUserData }}>
+      <appContext.Provider
+        value={{ userData, setUserData, favourites, setFavourites }}
+      >
         {props.children}
       </appContext.Provider>
     </>

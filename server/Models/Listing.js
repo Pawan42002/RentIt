@@ -46,6 +46,12 @@ const DetailsSchema = new mongoose.Schema({
   },
 });
 
+const LikeSchema = new mongoose.Schema({
+  clientId: {
+    type: String,
+  },
+});
+
 const ListingSchema = new mongoose.Schema({
   landlord: {
     type: Schema.Types.ObjectId,
@@ -57,6 +63,11 @@ const ListingSchema = new mongoose.Schema({
     //required: true,
   },
   features: [
+    {
+      type: String,
+    },
+  ],
+  likes: [
     {
       type: String,
     },

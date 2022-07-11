@@ -48,8 +48,10 @@ router.get("/allListings", async (req, res) => {
 
 router.get("/getAllLiked", fetchUser, async (req, res) => {
   try {
-    const user = await ClientModel.findOne({ _id: req.user.id });
-    res.json(user);
+    const listings = await ListingModel.find({
+      likes: req.user.id,
+    });
+    res.json(listings);
   } catch (error) {
     res.json("error");
   }
@@ -66,10 +68,21 @@ router.get("/getSingleListing", async (req, res) => {
 
 router.post("/addToLiked", fetchUser, async (req, res) => {
   try {
-    const toInsert = { listing: req.body.id };
-    await ClientModel.findOneAndUpdate(
-      { _id: req.user.id },
-      { $push: { favourites: toInsert } }
+    //const toInsert = { listing: req.body.id };
+    const s = await ListingModel.updateOne(
+      { _id: req.body.id },
+      { $push: { likes: req.user.id } }
+    );
+  } catch (error) {
+    res.json("error");
+  }
+});
+
+router.post("/unlike", fetchUser, async (req, res) => {
+  try {
+    const s = await ListingModel.updateOne(
+      { _id: req.body.id },
+      { $pull: { likes: req.user.id } }
     );
   } catch (error) {
     res.json("error");

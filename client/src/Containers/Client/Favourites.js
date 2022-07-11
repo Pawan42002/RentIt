@@ -1,36 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Spinner from "../../Components/Spinner";
 import { query } from "../../middleware/query";
 import ListSummary from "../../Components/ListSummary";
+import appContext from "../../context/appContext";
 const Favourites = () => {
-  const [favourites, setFavourties] = useState([]);
-  //const [loading, setLoading] = useState(false);
+  const { userData, favourites, setFavourites } = useContext(appContext);
+  const [loading, setLoading] = useState(true);
+  const inFavPage = true;
   useEffect(() => {
-    const getFavourites = async (req, res) => {
-      const response = await query("GET", "api/listings/getAllLiked");
-      const items = response.data.favourites;
-      //console.log(response.data.favourites);
-      await Promise.all(
-        items.map(async (item) => {
-          const contents = await query("GET", "api/listings/getSingleListing", {
-            id: item._id,
-          });
-          // setFavourties([...favourites, contents]);
-          return contents;
-        })
-      );
-      setFavourties(items);
+    const getFavourites = async () => {
+      try {
+        const response = await query("GET", "api/listings/getAllLiked");
+        setFavourites(response.data);
+        console.log(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getFavourites();
   }, []);
   return (
     <div>
-      {favourites.length === 0 && <Spinner />}
-      {favourites.length !== 0 && (
+      {loading && <Spinner />}
+      {!loading && (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 mx-auto justify-items-center gap-x-4 gap-y-4 max-w-fit mt-5">
             {favourites.map((favourite, idx) => {
-              return <ListSummary key={idx} />;
+              return (
+                <ListSummary
+                  listing={favourite}
+                  key={idx}
+                  inFavPage={inFavPage}
+                />
+              );
             })}
           </div>
         </>
