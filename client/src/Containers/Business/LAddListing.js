@@ -7,7 +7,8 @@ import { query } from "../../middleware/query";
 import { storage } from "../../firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import Modal from "../../Components/Modal";
-
+import Spinner from "../../Components/Spinner";
+import { toast } from "react-toastify";
 const imageIcon = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -55,6 +56,7 @@ const LAddListing = () => {
 	const [progresspercent, setProgresspercent] = useState(0);
 	const [open, setOpen] = useState(false);
 	const [currentImage, setCurrentImage] = useState({ name: "", url: "" });
+	const [currentUpload, setCurrentUpload] = useState(-1);
 
 	const handleImageUpload = (e) => {
 		e.preventDefault();
@@ -62,6 +64,10 @@ const LAddListing = () => {
 		if (!file) return;
 		const storageRef = ref(storage, `files/${file.name}`);
 		const uploadTask = uploadBytesResumable(storageRef, file);
+		
+		setCurrentUpload(images.length);
+		images.push({ name: file.name, url: "" });
+		
 		uploadTask.on(
 			"state_changed",
 			(snapshot) => {
@@ -75,9 +81,10 @@ const LAddListing = () => {
 			},
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-					//setImgUrl(downloadURL);
-					console.log(downloadURL);
-					setImages([...images, { name: file.name, url: downloadURL }]);
+					let Uimages = [...images];
+					Uimages[Uimages.length - 1].url = downloadURL;
+					setCurrentUpload(-1);
+					setImages(Uimages);
 				});
 			}
 		);
@@ -108,8 +115,12 @@ const LAddListing = () => {
 		console.log(res);
 	};
 	const openModal = (idx) => {
-		setCurrentImage(images[idx]);
-		setOpen(true);
+		if (images[idx].url !== "") {
+			setCurrentImage(images[idx]);
+			setOpen(true);
+		} else {
+			toast("No Image Found");
+		}
 	};
 	return (
 		<>
@@ -141,16 +152,11 @@ const LAddListing = () => {
 									</label>
 								</div>
 								<div className="px-5 py-1 text-gray-500 flex flex-col gap-y-1">
-									{progresspercent != 100 && (
-										<div className=" text-purple-200 border bg-purple-500 border-purple-500 py-2 rounded-lg">
-											Uploading... {progresspercent}
-										</div>
-									)}
 									{images.length > 0 &&
 										images.map((image, idx) => {
 											return (
 												<div
-													className="text-xs bg-gray-100 border border-gray-300 rounded-lg p-2 flex flex-row justify-between"
+													className="text-xs bg-gray-100 border border-gray-300 rounded-lg p-2 flex flex-row justify-between max-w-full"
 													key={idx}
 												>
 													<div className="flex flex-row align-center overflow-hidden">
@@ -164,18 +170,24 @@ const LAddListing = () => {
 															{image.name}
 														</div>
 													</div>
-													<div
-														className="my-auto hover:cursor-pointer "
-														onClick={() => {
-															setImages(
-																images.filter((currImage) => {
-																	return currImage != image;
-																})
-															);
-														}}
-													>
-														{closeIcon}
-													</div>
+													{currentUpload == idx ? (
+														<div className="float-right">
+															<Spinner ok={true} />
+														</div>
+													) : (
+														<div
+															className="my-auto hover:cursor-pointer "
+															onClick={() => {
+																setImages(
+																	images.filter((currImage) => {
+																		return currImage != image;
+																	})
+																);
+															}}
+														>
+															{closeIcon}
+														</div>
+													)}
 												</div>
 											);
 										})}
