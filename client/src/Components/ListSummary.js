@@ -18,10 +18,14 @@ const ListSummary = (props) => {
   }, []);
   return (
     <div className="flex flex-col min-w-fit bg-white rounded-lg border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 max-w-xs">
-      <img className="rounded-lg max-w-xs" src={image} alt="" />
+      <img
+        className="rounded-lg max-w-xs"
+        src={listing.images[0].url}
+        alt={listing.images[0].name}
+      />
       <div className="flex flex-col p-3 space-y-2 max-w-md">
         <div className="flex justify-between items-center space-x-5">
-          <h1 className="font-bold">Terrasini, Italy</h1>
+          <h1 className="font-bold">{listing.location}</h1>
           <div className="flex ">
             <svg
               className="w-5 h-5 text-yellow-300"
@@ -69,12 +73,10 @@ const ListSummary = (props) => {
           </div>
         </div>
         <div>
-          <p className="text-sm text-slate-600">
-            Featured in some random Magazine
-          </p>
+          <p className="text-sm text-slate-600">{listing.features[0]} </p>
         </div>
         <div className="flex justify-between items-center">
-          <h1>$10,000 pm</h1>
+          <h1>{listing.details.rent} Rs</h1>
           <button
             onClick={async () => {
               if (!userData) {
