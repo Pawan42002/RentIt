@@ -84,7 +84,7 @@ router.post("/clientLogin", async (req, res) => {
         httpOnly: true,
         //secure: process.env.NODE_ENV === "production",
       })
-      .json({ email: client.email, isLandlord: false });
+      .json({ id: client.id, email: client.email, isLandlord: false });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "some error occured here" });
