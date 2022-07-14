@@ -3,6 +3,7 @@ import Spinner from "../../Components/Spinner";
 import { query } from "../../middleware/query";
 import ListSummary from "../../Components/ListSummary";
 import appContext from "../../context/appContext";
+import Modal from "../../Components/Modal";
 const Favourites = () => {
   const { userData, favourites, setFavourites } = useContext(appContext);
   const [loading, setLoading] = useState(true);

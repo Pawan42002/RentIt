@@ -59,9 +59,10 @@ router.get("/getAllLiked", fetchUser, async (req, res) => {
   }
 });
 
-router.get("/getSingleListing", async (req, res) => {
+router.post("/getSingleListing", async (req, res) => {
   try {
-    const listing = await ListingModel.findOne({ _id: req.body.id });
+    //console.log(req.body.params);
+    const listing = await ListingModel.findOne({ _id: req.body.params.id });
     res.json(listing);
   } catch (error) {
     res.json("error");

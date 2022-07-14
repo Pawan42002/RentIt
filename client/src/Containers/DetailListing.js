@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import image from "../Assets/image-1.jpg";
+import { query } from "../middleware/query";
 const starSVG = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -43,6 +45,34 @@ const phoneSVG = (
   </svg>
 );
 const DetailListing = () => {
+  const params = useParams();
+  const [listing, setListing] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const props = { params: { id: params.id } };
+        // console.log(props);
+        const response = await query(
+          "POST",
+          "api/listings/getSingleListing",
+          props
+        );
+        setListing(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
+  if (loading) {
+    return (
+      <>
+        <div>loading</div>
+      </>
+    );
+  }
   let containerStyle =
     "flex flex-col justify-center bg-white mt-3 shadow-md rounded-md px-7 p-5";
 
@@ -51,7 +81,7 @@ const DetailListing = () => {
       <div className="bg-gray-100 h-screen">
         <div className="flex flex-col max-w-lg  rounded-lg  mx-auto bg-gray-100">
           <div>
-            <img src={image} className="p-1 rounded-xl" />
+            <img src={listing.images[0].url} className="p-1 rounded-xl" />
             <div className="bg-white shadow-md rounded-lg p-3 px-5 mt-1 py-4">
               <div className="text-xl font-medium">
                 Entire apartment hosted by Polly
@@ -67,8 +97,9 @@ const DetailListing = () => {
               <div>
                 <div className="text-xl font-bold p-1">Features</div>
                 <div className="px-1 text-sm">
-                  <div>1BHK Apartment with a total area of 400sq.ft</div>
-                  <div>Railway Station within 10 min walk</div>
+                  {listing.features.map((feature, idx) => {
+                    return <div key={idx}>{feature}</div>;
+                  })}
                 </div>
               </div>
             </div>
@@ -78,7 +109,7 @@ const DetailListing = () => {
               <div>
                 <div className="text-xl font-bold p-1">Rent</div>
                 <div className="px-1 text-sm flex flex-row">
-                  <div className="text-xl">$300</div>
+                  <div className="text-xl">Rs {listing.details.rent}</div>
                   <div className="mt-1">/month</div>
                 </div>
               </div>
@@ -89,7 +120,9 @@ const DetailListing = () => {
               <div>
                 <div className="text-xl font-bold p-1">Location</div>
                 <div className="px-1 text-sm">
-                  <div>Prabhadevi, Mumbai</div>
+                  <div>
+                    {listing.location},{listing.address.city}
+                  </div>
                 </div>
               </div>
             </div>

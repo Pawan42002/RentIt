@@ -5,11 +5,16 @@ import UserLoginRequired from "../Containers/UserLoginRequired";
 import Button from "./Button";
 import { ToastContainer, toast } from "react-toastify";
 import { query } from "../middleware/query";
+import Modal from "../Components/Modal";
+import { useNavigate } from "react-router-dom";
 const ListSummary = (props) => {
   const [liked, setLiked] = useState("none");
   const { userData, favourites, setFavourites } = useContext(appContext);
   const { listing, inFavPage } = props;
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
+    console.log(listing);
     if (userData) {
       if (listing.likes.includes(userData.id)) {
         setLiked("red");
@@ -22,6 +27,10 @@ const ListSummary = (props) => {
         className="rounded-lg max-w-xs"
         src={listing.images[0].url}
         alt={listing.images[0].name}
+        onClick={() => {
+          const link = "/listing/" + listing._id;
+          navigate(link);
+        }}
       />
       <div className="flex flex-col p-3 space-y-2 max-w-md">
         <div className="flex justify-between items-center space-x-5">
@@ -85,7 +94,6 @@ const ListSummary = (props) => {
               } else {
                 if (liked === "none") {
                   setLiked("red"); // code to edit the like button
-
                   await query("POST", "api/listings/addToLiked", {
                     id: props.listing._id,
                   });
