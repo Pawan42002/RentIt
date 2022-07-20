@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ListSummary from "../../Components/ListSummary";
-
+import { query } from "../../middleware/query";
 function Search() {
+  const [searchField, setSearchField] = useState("");
+  const [listings, setListings] = useState([]);
+  useEffect(() => {
+    const getListings = async () => {
+      const response = await query("GET", "api/listings/allListings");
+      setListings(response.data);
+      // console.log(response.data);
+      //console.log(listings);
+    };
+    getListings();
+  }, []);
+  const filteredListings = listings.filter((listing) => {
+    return (
+      listing.location.toLowerCase().includes(searchField.toLowerCase()) ||
+      listing.address.city.toLowerCase().includes(searchField.toLowerCase())
+    );
+  });
   return (
     <div className="dark:bg-gray-800 dark:text-white bg-gray-100 ">
       <div className="max-w-3xl mx-auto p-5 ">
@@ -27,9 +44,20 @@ function Search() {
             className="outline-none bg-transparent w-full"
             type="text"
             placeholder="Enter a location.."
+            onChange={(e) => {
+              setSearchField(e.target.value);
+            }}
           ></input>
         </button>
         <div className="grid grid-cols-1 md:grid-cols-2 mx-auto justify-items-center gap-x-4 gap-y-4 max-w-fit mt-5"></div>
+        {searchField !== "" &&
+          filteredListings.map((listing) => {
+            return (
+              <>
+                <div>{listing.location}</div>
+              </>
+            );
+          })}
       </div>
     </div>
   );
