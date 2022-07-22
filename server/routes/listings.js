@@ -4,7 +4,6 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const fetchUser = require("../middleware/fetchUser");
-const JWT_TOKEN = "pawan";
 const ClientModel = require("../Models/Client");
 // add address back again here
 router.post("/addListing", fetchUser, async (req, res) => {

@@ -4,8 +4,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const fetchUser = require("../middleware/fetchUser");
-const JWT_TOKEN = "pawan";
-
+const JWT_SECRET = process.env.JWT_SECRET;
 router.post("/registerClient", async (req, res) => {
   // register for client
   try {
@@ -39,7 +38,7 @@ router.post("/registerClient", async (req, res) => {
       },
     };
     //sending authtoken
-    const token = jwt.sign(data, JWT_TOKEN);
+    const token = jwt.sign(data, JWT_SECRET);
     return res
       .cookie("access_token", token, {
         httpOnly: true,
@@ -78,7 +77,7 @@ router.post("/clientLogin", async (req, res) => {
       },
     };
     //sending htoken
-    const token = jwt.sign(data, JWT_TOKEN);
+    const token = jwt.sign(data, JWT_SECRET);
     return res
       .cookie("access_token", token, {
         httpOnly: true,

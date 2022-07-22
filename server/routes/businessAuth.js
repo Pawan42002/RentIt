@@ -4,8 +4,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const fetchUser = require("../middleware/fetchUser");
-const JWT_TOKEN = "pawan";
-
+const JWT_SECRET = process.env.JWT_SECRET;
 router.post("/registerLandlord", async (req, res) => {
   try {
     //checking if the email is already in use
@@ -38,7 +37,7 @@ router.post("/registerLandlord", async (req, res) => {
       },
     };
     //sending authtoken
-    const token = jwt.sign(data, JWT_TOKEN);
+    const token = jwt.sign(data, JWT_SECRET);
     return res
       .cookie("access_token", token, {
         httpOnly: true,
@@ -77,7 +76,7 @@ router.post("/loginLandlord", async (req, res) => {
       },
     };
     //sending authtoken
-    const token = jwt.sign(data, JWT_TOKEN);
+    const token = jwt.sign(data, JWT_SECRET);
     return res
       .cookie("access_token", token, {
         httpOnly: true,
