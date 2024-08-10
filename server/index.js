@@ -14,16 +14,16 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
+	res.header("Access-Control-Allow-Origin", "*");
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, OPTIONS, PUT, PATCH, DELETE"
+	);
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
+	next();
 });
 
 connectToMongo();
@@ -34,18 +34,18 @@ app.use("/api/subscribe", require("./routes/subscribe"));
 
 app.use("/api/businessAuth", require("./routes/businessAuth"));
 app.get("/", (req, res) => {
-  res.send("home");
+	res.send("home");
 });
 
 app.get("/getUserData", fetchUser, async (req, res) => {
-  res.send({ id: req.user.id, isLandlord: req.user.isLandlord });
+	res.send(req.user);
 });
 
 app.post("/logout", async (req, res) => {
-  res.clearCookie("access_token");
-  res.send("Logout successful");
+	res.clearCookie("access_token");
+	res.send("Logout successful");
 });
 
 app.listen(3005, () => {
-  console.log("Running on port 3005");
+	console.log("Running on port 3005");
 });

@@ -7,7 +7,8 @@ import ListSummary from "../../Components/ListSummary";
 import { query } from "../../middleware/query";
 import appContext from "../../context/appContext";
 const Profile = () => {
-	const { setUserData } = useContext(appContext);
+	const { userData, setUserData } = useContext(appContext);
+	console.log(userData);
 	const navigate = useNavigate();
 	let containerStyle =
 		"flex flex-col justify-center space-y-4 bg-white mt-5 shadow-md rounded-lg px-10 p-5";
@@ -37,15 +38,14 @@ const Profile = () => {
 				<div className={containerStyle + " pb-10"}>
 					<h1 className="text-2xl text-gray-400 font-bold mx-auto">Profile</h1>
 					<img src={image} className=" w-32 h-32 mx-auto rounded-full m-2" />
-					<Input label={"NAME"} value={"Manjunath"} placeholder={"Name"} />
 					<Input
-						label={"PHONE"}
-						value={"8830526885"}
-						placeholder={"Phone Number"}
+						label={"NAME"}
+						value={userData.firstName + " " + userData.lastName}
+						placeholder={"Name"}
 					/>
 					<Input
 						label={"EMAIL"}
-						value={"nath.vasam@gmail.com"}
+						value={userData.email}
 						placeholder={"Email Id"}
 					/>
 					<Button name={"Logout"} onClick={handleLogout} />

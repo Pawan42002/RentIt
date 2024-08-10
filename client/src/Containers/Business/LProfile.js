@@ -8,7 +8,7 @@ import { query } from "../../middleware/query";
 import appContext from "../../context/appContext";
 const LProfile = () => {
 	const context = useContext(appContext);
-	const { setUserData } = context;
+	const { userData, setUserData } = context;
 	let containerStyle =
 		"flex flex-col justify-center space-y-4 bg-white mt-5 shadow-md rounded-lg px-10 p-5";
 	const navigate = useNavigate();
@@ -17,7 +17,7 @@ const LProfile = () => {
 			.then((res) => {
 				if (res.data == "Logout successful") {
 					setUserData(null);
-					navigate("/home");
+					navigate("/home");	
 				} else {
 					window.alert("Cannot logout");
 				}
@@ -38,15 +38,14 @@ const LProfile = () => {
 				<div className={containerStyle + " pb-10"}>
 					<h1 className="text-2xl text-gray-400 font-bold mx-auto">Profile</h1>
 					<img src={image} className=" w-32 h-32 mx-auto rounded-full m-2" />
-					<Input label={"NAME"} value={"Manjunath"} placeholder={"Name"} />
 					<Input
-						label={"PHONE"}
-						value={"8830526885"}
-						placeholder={"Phone Number"}
+						label={"NAME"}
+						value={userData.firstName + " " + userData.lastName}
+						placeholder={"Name"}
 					/>
 					<Input
 						label={"EMAIL"}
-						value={"nath.vasam@gmail.com"}
+						value={userData.email}
 						placeholder={"Email Id"}
 					/>
 				</div>
