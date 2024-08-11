@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import image from "../Assets/image-1.jpg";
 import { query } from "../middleware/query";
+import Spinner from "../Components/Spinner";
 //  will work on this
 const starSVG = (
 	<svg
@@ -86,59 +87,62 @@ const DetailListing = () => {
 		<>
 			<div className="bg-gray-100 h-screen">
 				<div className="flex flex-col max-w-lg  rounded-lg  mx-auto bg-gray-100">
-					<div class="relative flex items-center justify-center overflow-hidden">
-						<div
-							class="absolute left-0 z-10 p-2 bg-white rounded-full shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-110"
-							onClick={() => {
-								let curr = (imageNumber - 1 + imagesSize) % imagesSize;
-								setImageNumber(curr);
-							}}
-						>
-							<svg
-								class="w-6 h-6 text-gray-700"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
+					<div className="relative flex items-center justify-center overflow-hidden">
+						{imageNumber != 0 && (
+							<div
+								className="absolute left-0 z-10 p-2 bg-white rounded-full shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-110"
+								onClick={() => {
+									let curr = (imageNumber - 1 + imagesSize) % imagesSize;
+									setImageNumber(curr);
+								}}
 							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M15 19l-7-7 7-7"
-								></path>
-							</svg>
-						</div>
-						<div>
+								<svg
+									className="w-6 h-6 text-gray-700"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										strokeWidth="2"
+										d="M15 19l-7-7 7-7"
+									></path>
+								</svg>
+							</div>
+						)}
+						<div className="z-index:1">
 							<img
 								src={listing.images[imageNumber].url}
 								className="w-full rounded-xl"
 							/>
 						</div>
-						<div
-							class="absolute right-0 z-10 p-2 bg-white rounded-full shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-110"
-							onClick={() => {
-								let curr = (imageNumber + 1) % imagesSize;
-								setImageNumber(curr);
-							}}
-						>
-							<svg
-								class="w-6 h-6 text-gray-700"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
+						{imageNumber != imagesSize - 1 && (
+							<div
+								className="absolute right-0 z-10 p-2 bg-white rounded-full shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-110"
+								onClick={() => {
+									let curr = (imageNumber + 1) % imagesSize;
+									setImageNumber(curr);
+								}}
 							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M9 5l7 7-7 7"
-								></path>
-							</svg>
-						</div>
+								<svg
+									className="w-6 h-6 text-gray-700"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										strokeWidth="2"
+										d="M9 5l7 7-7 7"
+									></path>
+								</svg>
+							</div>
+						)}
 					</div>
-
 					<div className="bg-white shadow-md rounded-lg p-3 px-5 mt-1 py-4">
 						<div className="text-xl font-medium">
 							Entire apartment hosted by Polly
