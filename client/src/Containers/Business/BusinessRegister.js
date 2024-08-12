@@ -4,7 +4,13 @@ import { query } from "../../middleware/query";
 import appContext from "../../context/appContext";
 import { toast } from "react-toastify";
 import Button from "../../Components/Button";
-const BusinessRegister = () => {
+
+// will use this single page for both client and landlords
+function validateEmail(email) {
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	return emailRegex.test(email);
+}
+function BusinessRegister() {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -12,7 +18,7 @@ const BusinessRegister = () => {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [address, setAddress] = useState("");
 	const [emailVerified, setEmailVerified] = useState(false);
-	const [otpSent, setOtpSent] = useState(true);
+	const [otpSent, setOtpSent] = useState(false);
 	const [code, setCode] = useState("");
 	const context = useContext(appContext);
 	const { setUserData } = context;
@@ -52,6 +58,10 @@ const BusinessRegister = () => {
 		}
 	};
 	const sendOTP = async () => {
+		if (!validateEmail(email)) {
+			toast("Email ID not valid");
+			return;
+		}
 		let props = {
 			email: email,
 		};
@@ -98,7 +108,7 @@ const BusinessRegister = () => {
 		};
 		let res = await query("POST", "api/businessAuth/registerLandlord", props);
 		if (res) {
-			console.log(res.data);
+			console.log(res);
 			setUserData(res.data);
 			navigate("/b/");
 		}
@@ -121,15 +131,15 @@ const BusinessRegister = () => {
 						<div className="relative">
 							<div
 								className="
-                                  inline-flex
-                                  items-center
-                                  justify-center
-                                  absolute
-                                  left-0
-                                  top-0
-                                  h-full
-                                  w-10
-                                  text-gray-400"
+                                    inline-flex
+                                    items-center
+                                    justify-center
+                                    absolute
+                                    left-0
+                                    top-0
+                                    h-full
+                                    w-10
+                                    text-gray-400"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -151,17 +161,17 @@ const BusinessRegister = () => {
 								type="name"
 								value={firstName}
 								className="
-                                    dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
-                                    dark:border-gray-800                                                                
-                                      text-sm
-                                      placeholder-gray-500
-                                      pl-10
-                                      pr-4
-                                      rounded-md
-                                      border border-gray-400
-                                      w-full
-                                      py-2
-                                      focus:outline-none focus:border-purple-700"
+                                      dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
+                                      dark:border-gray-800                                                                
+                                        text-sm
+                                        placeholder-gray-500
+                                        pl-10
+                                        pr-4
+                                        rounded-md
+                                        border border-gray-400
+                                        w-full
+                                        py-2
+                                        focus:outline-none focus:border-purple-700"
 								placeholder="Enter your First Name"
 								onChange={(e) => handleInputChange(e)}
 							/>
@@ -174,15 +184,15 @@ const BusinessRegister = () => {
 						<div className="relative">
 							<div
 								className="
-                                  inline-flex
-                                  items-center
-                                  justify-center
-                                  absolute
-                                  left-0
-                                  top-0
-                                  h-full
-                                  w-10
-                                  text-gray-400"
+                                    inline-flex
+                                    items-center
+                                    justify-center
+                                    absolute
+                                    left-0
+                                    top-0
+                                    h-full
+                                    w-10
+                                    text-gray-400"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -204,17 +214,17 @@ const BusinessRegister = () => {
 								type="name"
 								value={lastName}
 								className="
-                                    dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
-                                    dark:border-gray-800                                                                
-                                      text-sm
-                                      placeholder-gray-500
-                                      pl-10
-                                      pr-4
-                                      rounded-md
-                                      border border-gray-400
-                                      w-full
-                                      py-2
-                                      focus:outline-none focus:border-purple-700"
+                                      dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
+                                      dark:border-gray-800                                                                
+                                        text-sm
+                                        placeholder-gray-500
+                                        pl-10
+                                        pr-4
+                                        rounded-md
+                                        border border-gray-400
+                                        w-full
+                                        py-2
+                                        focus:outline-none focus:border-purple-700"
 								placeholder="Enter your last name"
 								onChange={(e) => handleInputChange(e)}
 							/>
@@ -227,15 +237,15 @@ const BusinessRegister = () => {
 						<div className="relative">
 							<div
 								className="
-                                  inline-flex
-                                  items-center
-                                  justify-center
-                                  absolute
-                                  left-0
-                                  top-0
-                                  h-full
-                                  w-10
-                                  text-gray-400"
+                                    inline-flex
+                                    items-center
+                                    justify-center
+                                    absolute
+                                    left-0
+                                    top-0
+                                    h-full
+                                    w-10
+                                    text-gray-400"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -258,17 +268,17 @@ const BusinessRegister = () => {
 								name="email"
 								value={email}
 								className="
-                                    dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
-                                    dark:border-gray-800                                                                
-                                      text-sm
-                                      placeholder-gray-500
-                                      pl-10
-                                      pr-4
-                                      rounded-md
-                                      border border-gray-400
-                                      w-full
-                                      py-2
-                                      focus:outline-none focus:border-purple-700"
+                                      dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
+                                      dark:border-gray-800                                                                
+                                        text-sm
+                                        placeholder-gray-500
+                                        pl-10
+                                        pr-4
+                                        rounded-md
+                                        border border-gray-400
+                                        w-full
+                                        py-2
+                                        focus:outline-none focus:border-purple-700"
 								placeholder="Enter your email"
 								onChange={(e) => handleInputChange(e)}
 							/>
@@ -281,15 +291,15 @@ const BusinessRegister = () => {
 						<div className="relative">
 							<div
 								className="
-                                      inline-flex
-                                      items-center
-                                      justify-center
-                                      absolute
-                                      left-0
-                                      top-0
-                                      h-full
-                                      w-10
-                                      text-gray-400"
+                                        inline-flex
+                                        items-center
+                                        justify-center
+                                        absolute
+                                        left-0
+                                        top-0
+                                        h-full
+                                        w-10
+                                        text-gray-400"
 							>
 								<span>
 									<svg
@@ -312,17 +322,17 @@ const BusinessRegister = () => {
 								name="password"
 								value={password}
 								className="
-                                    dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
-                                    dark:border-gray-800                                
-                                      text-sm
-                                      placeholder-gray-500
-                                      pl-10
-                                      pr-4
-                                      rounded-md
-                                      border border-gray-400
-                                      w-full
-                                      py-2
-                                      focus:outline-none focus:border-purple-700"
+                                      dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
+                                      dark:border-gray-800                                
+                                        text-sm
+                                        placeholder-gray-500
+                                        pl-10
+                                        pr-4
+                                        rounded-md
+                                        border border-gray-400
+                                        w-full
+                                        py-2
+                                        focus:outline-none focus:border-purple-700"
 								placeholder="Enter your password"
 								onChange={(e) => handleInputChange(e)}
 							/>
@@ -335,15 +345,15 @@ const BusinessRegister = () => {
 						<div className="relative">
 							<div
 								className="
-                                      inline-flex
-                                      items-center
-                                      justify-center
-                                      absolute
-                                      left-0
-                                      top-0
-                                      h-full
-                                      w-10
-                                      text-gray-400"
+                                        inline-flex
+                                        items-center
+                                        justify-center
+                                        absolute
+                                        left-0
+                                        top-0
+                                        h-full
+                                        w-10
+                                        text-gray-400"
 							>
 								<span>
 									<svg
@@ -366,17 +376,17 @@ const BusinessRegister = () => {
 								name="password"
 								value={confirmPassword}
 								className="
-                                    dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
-                                    dark:border-gray-800
-                                      text-sm
-                                      placeholder-gray-500
-                                      pl-10
-                                      pr-4
-                                      rounded-md
-                                      border border-gray-400 
-                                      w-full
-                                      py-2
-                                      focus:outline-none focus:border-purple-700"
+                                      dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
+                                      dark:border-gray-800
+                                        text-sm
+                                        placeholder-gray-500
+                                        pl-10
+                                        pr-4
+                                        rounded-md
+                                        border border-gray-400 
+                                        w-full
+                                        py-2
+                                        focus:outline-none focus:border-purple-700"
 								placeholder="Enter your password"
 								onChange={(e) => handleInputChange(e)}
 							/>
@@ -390,15 +400,15 @@ const BusinessRegister = () => {
 						<div className="relative">
 							<div
 								className="
-                                      inline-flex
-                                      items-center
-                                      justify-center
-                                      absolute
-                                      left-0
-                                      top-0
-                                      h-full
-                                      w-10
-                                      text-gray-400"
+                                        inline-flex
+                                        items-center
+                                        justify-center
+                                        absolute
+                                        left-0
+                                        top-0
+                                        h-full
+                                        w-10
+                                        text-gray-400"
 							>
 								<span>
 									<svg
@@ -421,17 +431,17 @@ const BusinessRegister = () => {
 								name="address"
 								value={address}
 								className="
-                                    dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
-                                    dark:border-gray-800
-                                      text-sm
-                                      placeholder-gray-500
-                                      pl-10
-                                      pr-4
-                                      rounded-md
-                                      border border-gray-400 
-                                      w-full
-                                      py-2
-                                      focus:outline-none focus:border-purple-700"
+                                      dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
+                                      dark:border-gray-800
+                                        text-sm
+                                        placeholder-gray-500
+                                        pl-10
+                                        pr-4
+                                        rounded-md
+                                        border border-gray-400 
+                                        w-full
+                                        py-2
+                                        focus:outline-none focus:border-purple-700"
 								placeholder="Enter your address"
 								onChange={(e) => handleInputChange(e)}
 							/>
@@ -445,15 +455,15 @@ const BusinessRegister = () => {
 							<div className="relative">
 								<div
 									className="
-                                inline-flex
-                                items-center
-                                justify-center
-                                absolute
-                                left-0
-                                top-0
-                                h-full
-                                w-10
-                                text-gray-400"
+                                  inline-flex
+                                  items-center
+                                  justify-center
+                                  absolute
+                                  left-0
+                                  top-0
+                                  h-full
+                                  w-10
+                                  text-gray-400"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -476,17 +486,17 @@ const BusinessRegister = () => {
 									name="code"
 									value={code}
 									className="
-                                  dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
-                                  dark:border-gray-800                                                                
-                                    text-sm
-                                    placeholder-gray-500
-                                    pl-10
-                                    pr-4
-                                    rounded-md
-                                    border border-gray-400
-                                    w-full
-                                    py-2
-                                    focus:outline-none focus:border-purple-700"
+                                    dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700
+                                    dark:border-gray-800                                                                
+                                      text-sm
+                                      placeholder-gray-500
+                                      pl-10
+                                      pr-4
+                                      rounded-md
+                                      border border-gray-400
+                                      w-full
+                                      py-2
+                                      focus:outline-none focus:border-purple-700"
 									placeholder="Enter OTP"
 									onChange={(e) => handleInputChange(e)}
 								/>
@@ -497,20 +507,20 @@ const BusinessRegister = () => {
 						<button
 							onClick={sendOTP}
 							className="
-                                      flex
-                                      mt-2
-                                      items-center
-                                      justify-center
-                                      focus:outline-none
-                                      bg-indigo-600 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700
-                                      rounded-md
-                                      py-2
-                                      w-full
-                                      transition
-                                      duration-150
-                                      ease-in"
+                                        flex
+                                        mt-2
+                                        items-center
+                                        justify-center
+                                        focus:outline-none
+                                        bg-indigo-600 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700
+                                        rounded-md
+                                        py-2
+                                        w-full
+                                        transition
+                                        duration-150
+                                        ease-in"
 						>
-							<span className="mr-2 uppercase">GET OTP</span>
+							<span className="mr-2 uppercase">Get OTP</span>
 							<span>
 								<svg
 									className="h-6 w-6"
@@ -530,18 +540,18 @@ const BusinessRegister = () => {
 						<button
 							onClick={handleSubmit}
 							className="
-                                      flex
-                                      mt-2
-                                      items-center
-                                      justify-center
-                                      focus:outline-none
-                                      bg-indigo-600 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700
-                                      rounded-md
-                                      py-2
-                                      w-full
-                                      transition
-                                      duration-150
-                                      ease-in"
+                                        flex
+                                        mt-2
+                                        items-center
+                                        justify-center
+                                        focus:outline-none
+                                        bg-indigo-600 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700
+                                        rounded-md
+                                        py-2
+                                        w-full
+                                        transition
+                                        duration-150
+                                        ease-in"
 						>
 							<span className="mr-2 uppercase">
 								{emailVerified ? "Register" : "Verify OTP"}
@@ -566,11 +576,11 @@ const BusinessRegister = () => {
 			<div className="mb-5 flex justify-center items-center mt-6">
 				<div
 					className="
-                      inline-flex
-                      items-center
-                      text-gray-700
-                      font-medium
-                      text-xs text-center"
+                        inline-flex
+                        items-center
+                        text-gray-700
+                        font-medium
+                        text-xs text-center"
 				>
 					<span className="ml-2">
 						Already have an account?
@@ -585,6 +595,6 @@ const BusinessRegister = () => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default BusinessRegister;
