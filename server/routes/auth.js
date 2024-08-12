@@ -49,7 +49,9 @@ router.post("/registerClient", async (req, res) => {
 		//checking if the email is already in use
 		let client = await ClientModel.findOne({ email: req.body.email });
 		if (client) {
-			return res.status(400).json({ error: "Email id already in use" });
+			return res
+				.status(400)
+				.json({ error: "Email id already in use,please login directly" });
 		}
 		// generating salt for bcryption
 		const salt = await bcrypt.genSalt(10);
@@ -76,7 +78,7 @@ router.post("/registerClient", async (req, res) => {
 				firstName: client.firstName,
 				lastName: client.lastName,
 				email: client.email,
-				emailVerified: client.emailVerified,
+				emailVerified: true,
 			},
 		};
 		//sending authtoken
