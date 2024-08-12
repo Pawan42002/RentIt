@@ -71,6 +71,7 @@ router.post("/registerLandlord", async (req, res) => {
 				firstName: landlord.firstName,
 				lastName: landlord.lastName,
 				email: landlord.email,
+				emailVerified: landlord.emailVerified,
 			},
 		};
 		//sending authtoken
@@ -113,6 +114,7 @@ router.post("/loginLandlord", async (req, res) => {
 				firstName: landlord.firstName,
 				lastName: landlord.lastName,
 				email: landlord.email,
+				emailVerified: landlord.emailVerified,
 			},
 		};
 		//sending authtoken

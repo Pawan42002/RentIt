@@ -76,6 +76,7 @@ router.post("/registerClient", async (req, res) => {
 				firstName: client.firstName,
 				lastName: client.lastName,
 				email: client.email,
+				emailVerified: client.emailVerified,
 			},
 		};
 		//sending authtoken
@@ -118,6 +119,7 @@ router.post("/clientLogin", async (req, res) => {
 				firstName: client.firstName,
 				lastName: client.lastName,
 				email: client.email,
+				emailVerified: client.emailVerified,
 			},
 		};
 		//sending htoken
