@@ -1,11 +1,44 @@
 const express = require("express");
 const LandlordModel = require("../Models/Landord");
+const LandlordEmailVerificationModel = require("../Models/LandlordEmailVerification");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const fetchUser = require("../middleware/fetchUser");
+const sendEmailVerification = require("../middleware/sendEmailVerification");
 //const JWT_SECRET = process.env.JWT_SECRET;
+//we have to create an email verification part here too
 const JWT_SECRET = "pawan";
+router.post("/sendEmailVerification", async (req, res) => {
+	try {
+		await sendEmailVerification(req.body.email, LandlordEmailVerificationModel);
+		return res.status(200).send("email sent");
+	} catch (error) {
+		console.error(error.message);
+		res.status(500).send("error occured heree");
+	}
+});
+router.post("/verifyOTP", async (req, res) => {
+	try {
+		let userCode = req.body.code;
+		let userEmail = req.body.email;
+		let user = await LandlordEmailVerificationModel.findOne({
+			email: userEmail,
+		});
+		if (!user) {
+			return res.status(200).send("email not found");
+		}
+		if (user.code === userCode) {
+			return res.status(200).send("OTP verified successfully");
+		} else {
+			return res.status(200).send("OTP does not match");
+		}
+	} catch (error) {
+		console.error(error.message);
+		res.status(500).send("error occured here");
+	}
+});
+
 router.post("/registerLandlord", async (req, res) => {
 	try {
 		//checking if the email is already in use

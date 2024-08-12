@@ -12,12 +12,12 @@ const transporter = nodemailer.createTransport({
 	},
 });
 
-const sendEmailVerification = async (emailID, Model) => {
+const sendEmailVerification = async (email, Model) => {
 	let code = Math.floor(1000 + Math.random() * 9000); // random code generation
 	code = "" + code;
 	let mailOptions = {
 		from: "pawanvanced@gmail.com",
-		to: emailID,
+		to: email,
 		subject: "OTP",
 		text: "OTP to verify your email is " + code,
 	};
@@ -25,10 +25,15 @@ const sendEmailVerification = async (emailID, Model) => {
 		if (error) {
 			return error;
 		} else {
-			let check = await Model.create({
-				email: emailID,
-				code: code,
-			}); // we have to remove if we find anything with the same email id
+			try {
+				await Model.findOneAndDelete({ email: email });
+				await Model.create({
+					email: email,
+					code: code,
+				});
+			} catch (e) {
+				return e;
+			}
 			return info;
 		}
 	});
