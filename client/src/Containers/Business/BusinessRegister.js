@@ -20,6 +20,7 @@ function BusinessRegister() {
 	const [emailVerified, setEmailVerified] = useState(false);
 	const [otpSent, setOtpSent] = useState(false);
 	const [code, setCode] = useState("");
+	const [otpTimeOut, setOtpTimeOut] = useState(false);
 	const context = useContext(appContext);
 	const { setUserData } = context;
 	const navigate = useNavigate();
@@ -58,6 +59,10 @@ function BusinessRegister() {
 		}
 	};
 	const sendOTP = async () => {
+		if (otpTimeOut) {
+			toast("Wait for some time before requesting for another OTP");
+			return;
+		}
 		if (!validateEmail(email)) {
 			toast("Email ID not valid");
 			return;
@@ -73,6 +78,10 @@ function BusinessRegister() {
 		if (res) {
 			toast("OTP sent successfully");
 			setOtpSent(true);
+			setOtpTimeOut(true);
+			setTimeout(() => {
+				setOtpTimeOut(false);
+			}, 20000);
 		}
 	};
 	const verifyOTP = async () => {

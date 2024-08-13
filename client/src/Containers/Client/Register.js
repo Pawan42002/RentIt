@@ -5,7 +5,7 @@ import appContext from "../../context/appContext";
 import { toast } from "react-toastify";
 import Button from "../../Components/Button";
 
-// will use this single page for both client and landlords
+// will use setTimeout
 function validateEmail(email) {
 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 	return emailRegex.test(email);
@@ -20,6 +20,7 @@ function Register() {
 	const [emailVerified, setEmailVerified] = useState(false);
 	const [otpSent, setOtpSent] = useState(false);
 	const [code, setCode] = useState("");
+	const [otpTimeOut, setOtpTimeOut] = useState(false);
 	const context = useContext(appContext);
 	const { setUserData } = context;
 	const navigate = useNavigate();
@@ -57,7 +58,12 @@ function Register() {
 			}
 		}
 	};
+
 	const sendOTP = async () => {
+		if (otpTimeOut) {
+			toast("Wait for some time before requesting for another OTP");
+			return;
+		}
 		if (!validateEmail(email)) {
 			toast("Email ID not valid");
 			return;
@@ -69,6 +75,10 @@ function Register() {
 		if (res) {
 			toast("OTP sent successfully");
 			setOtpSent(true);
+			setOtpTimeOut(true);
+			setTimeout(() => {
+				setOtpTimeOut(false);
+			}, 20000);
 		}
 	};
 	const verifyOTP = async () => {
