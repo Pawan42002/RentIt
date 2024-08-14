@@ -61,6 +61,7 @@ router.post("/registerLandlord", async (req, res) => {
 			lastName: req.body.lastName,
 			address: address,
 			password: secPass,
+			emailVerified: true,
 		});
 		// creating a authtoken using our client's id
 		const data = {
@@ -127,6 +128,36 @@ router.post("/loginLandlord", async (req, res) => {
 			.json(data.user);
 	} catch (error) {
 		console.log(error);
+		res.status(500).json({ error: "some error occured here" });
+	}
+});
+router.post("/editDetails", async (req, res) => {
+	try {
+		const { email, firstName, lastName } = req.body;
+		let landlord = await LandlordModel.findOneAndUpdate(
+			{ email },
+			{ firstName: firstName, lastName: lastName }
+		);
+		const data = {
+			user: {
+				id: landlord.id,
+				isLandlord: true,
+				isSubscribed: false,
+				firstName: firstName,
+				lastName: lastName,
+				email: landlord.email,
+				emailVerified: landlord.emailVerified,
+			},
+		};
+		//sending htoken
+		const token = jwt.sign(data, JWT_SECRET);
+		return res
+			.cookie("access_token", token, {
+				httpOnly: true,
+				//secure: process.env.NODE_ENV === "production",
+			})
+			.json(data.user);
+	} catch (error) {
 		res.status(500).json({ error: "some error occured here" });
 	}
 });
