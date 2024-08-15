@@ -145,11 +145,11 @@ const DetailListing = () => {
 					</div>
 					<div className="bg-white shadow-md rounded-lg p-3 px-5 mt-1 py-4">
 						<div className="text-xl font-medium">
-							Entire apartment hosted by Polly
+							Hosted by {listing.landlordFirstName}
 						</div>
-						<div className="text-sm font-light">
+						{/* <div className="text-sm font-light">
 							4 guests1 bedroom2 beds1 bathroom
-						</div>
+						</div> */}
 					</div>
 					<div className={containerStyle + " pb-5"}>
 						<div className="flex flex-row mb-2">
@@ -193,7 +193,7 @@ const DetailListing = () => {
 							<div>
 								<div className="text-xl font-bold p-1">Owner</div>
 								<div className="px-1 text-sm">
-									<div>(+91) 81212312312</div>
+									<div>{listing.landlordEmail}</div>
 								</div>
 							</div>
 						</div>
