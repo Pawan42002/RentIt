@@ -115,11 +115,16 @@ function BusinessRegister() {
 			lastName,
 			address: add1,
 		};
-		let res = await query("POST", "api/businessAuth/registerLandlord", props);
-		if (res) {
-			console.log(res);
-			setUserData(res.data);
-			navigate("/b/");
+		try {
+			let res = await query("POST", "api/businessAuth/registerLandlord", props);
+			if (res) {
+				setUserData(res.data);
+				navigate("/b/");
+			} else {
+				toast("Email id is already in use");
+			}
+		} catch (error) {
+			toast("Something went wrong");
 		}
 	};
 	return (
@@ -594,7 +599,7 @@ function BusinessRegister() {
 					<span className="ml-2">
 						Already have an account?
 						<Link
-							to="/businessLogin"
+							to="/b/login"
 							className="text-xs ml-2 text-indigo-600 hover:text-indigo-500 font-semibold"
 						>
 							Login

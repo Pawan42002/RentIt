@@ -112,11 +112,15 @@ function Register() {
 			lastName,
 			address: add1,
 		};
-		let res = await query("POST", "api/auth/registerClient", props);
-		if (res) {
-			console.log(res);
-			setUserData(res.data);
-			navigate("/"); // this line also changes
+		try {
+			let res = await query("POST", "api/auth/registerClient", props);
+			if (res) {
+				console.log(res);
+				setUserData(res.data);
+				navigate("/"); // this line also changes
+			}
+		} catch (error) {
+			toast("Something went wrong");
 		}
 	};
 

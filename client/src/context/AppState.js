@@ -10,7 +10,7 @@ function AppState(props) {
 	const getData = async () => {
 		query("GET", "getUserData")
 			.then((res) => {
-				if (res.data == "no token found") setUserData(null);
+				if (res.data === "no token found") setUserData(null);
 				else setUserData(res.data);
 				setLoading(false);
 			})
