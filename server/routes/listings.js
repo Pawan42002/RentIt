@@ -13,9 +13,21 @@ router.post("/addListing", fetchUser, async (req, res) => {
 			console.log("here");
 			res.sendStatus(403);
 		}
-		const { address, images, features, details, location } = req.body;
+		const {
+			landlordFirstName,
+			landlordLastName,
+			landlordEmail,
+			address,
+			images,
+			features,
+			details,
+			location,
+		} = req.body;
 		const listing = await ListingModel.create({
 			landlord: req.user.id,
+			landlordFirstName,
+			landlordLastName,
+			landlordEmail,
 			images,
 			address,
 			features,

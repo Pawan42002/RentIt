@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import TextField from "../../Components/TextField";
@@ -9,6 +9,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import Modal from "../../Components/Modal";
 import Spinner from "../../Components/Spinner";
 import { toast } from "react-toastify";
+import appContext from "../../context/appContext";
 const imageIcon = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -42,6 +43,7 @@ const closeIcon = (
 );
 
 const LAddListing = () => {
+	const { userData } = useContext(appContext);
 	let containerStyle =
 		"flex flex-col justify-center space-y-4 bg-white mt-5 shadow-md rounded-lg px-10 p-5";
 	const [street, setStreet] = useState(""); //
@@ -103,6 +105,9 @@ const LAddListing = () => {
 		};
 		// main object to be passed
 		const props = {
+			landlordFirstName: userData.firstName,
+			landlordLastName: userData.lastName,
+			landlordEmail: userData.email,
 			images,
 			features,
 			details,
