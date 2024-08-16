@@ -4,7 +4,8 @@ import { query } from "../../middleware/query";
 import appContext from "../../context/appContext";
 import { toast } from "react-toastify";
 import Button from "../../Components/Button";
-
+import { StrongPassword } from "../../Functions/StrongPassword";
+import WeakPassword from "../../Components/WeakPassword";
 // will use this single page for both client and landlords
 function validateEmail(email) {
 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -16,6 +17,7 @@ function BusinessRegister() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [isPasswordStrong, setIsPasswordStrong] = useState(false);
 	const [address, setAddress] = useState("");
 	const [emailVerified, setEmailVerified] = useState(false);
 	const [otpSent, setOtpSent] = useState(false);
@@ -41,6 +43,11 @@ function BusinessRegister() {
 				break;
 			}
 			case "password": {
+				if (StrongPassword(value)) {
+					setIsPasswordStrong(true);
+				} else {
+					setIsPasswordStrong(false);
+				}
 				setPassword(value);
 				break;
 			}
@@ -360,6 +367,9 @@ function BusinessRegister() {
 								onChange={(e) => handleInputChange(e)}
 							/>
 						</div>
+					</div>
+					<div>
+						{password.length > 0 && !isPasswordStrong && <WeakPassword />}
 					</div>
 					<div className="flex flex-col mb-6">
 						<label className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600 dark:text-gray-400">
