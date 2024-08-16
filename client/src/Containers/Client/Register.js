@@ -67,6 +67,10 @@ function Register() {
 	};
 
 	const sendOTP = async () => {
+		if (!isPasswordStrong) {
+			toast("Weak password");
+			return;
+		}
 		if (password != confirmPassword) {
 			toast("Check password once again!");
 			return;
@@ -101,6 +105,10 @@ function Register() {
 		}
 	};
 	const verifyOTP = async () => {
+		if (!isPasswordStrong) {
+			toast("Weak password");
+			return;
+		}
 		let props = {
 			email: email,
 			code: code,
