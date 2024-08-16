@@ -90,7 +90,7 @@ const DetailListing = () => {
 					<div className="relative flex items-center justify-center overflow-hidden">
 						{imageNumber != 0 && (
 							<div
-								className="absolute left-0 z-10 p-2 bg-white rounded-full shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-110"
+								className="absolute left-0 p-2 bg-white rounded-full shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-110"
 								onClick={() => {
 									let curr = (imageNumber - 1 + imagesSize) % imagesSize;
 									setImageNumber(curr);
@@ -112,7 +112,7 @@ const DetailListing = () => {
 								</svg>
 							</div>
 						)}
-						<div className="z-index:1">
+						<div>
 							<img
 								src={listing.images[imageNumber].url}
 								className="w-full rounded-xl"
@@ -120,7 +120,7 @@ const DetailListing = () => {
 						</div>
 						{imageNumber != imagesSize - 1 && (
 							<div
-								className="absolute right-0 z-10 p-2 bg-white rounded-full shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-110"
+								className="absolute right-0 p-2 bg-white rounded-full shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-110"
 								onClick={() => {
 									let curr = (imageNumber + 1) % imagesSize;
 									setImageNumber(curr);
