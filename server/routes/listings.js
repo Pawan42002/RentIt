@@ -103,4 +103,14 @@ router.post("/unlike", fetchUser, async (req, res) => {
 	}
 });
 
+router.post("/deleteListing", async (req, res) => {
+	try {
+		const listing_id = req.body._id;
+		await ListingModel.findByIdAndRemove(listing_id);
+		res.json("Successfully Deleted");
+	} catch (error) {
+		res.json(error);
+	}
+});
+
 module.exports = router;

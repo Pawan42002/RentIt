@@ -10,11 +10,10 @@ import { useNavigate } from "react-router-dom";
 const ListSummary = (props) => {
 	const [liked, setLiked] = useState("none");
 	const { userData, favourites, setFavourites } = useContext(appContext);
-	const { listing, inFavPage } = props;
+	const { listing, inFavPage, showDelete, deleteListing } = props;
 	const [open, setOpen] = useState(false);
 	const navigate = useNavigate();
 	useEffect(() => {
-		console.log(listing);
 		if (userData) {
 			if (listing.likes.includes(userData.id)) {
 				setLiked("red");
@@ -84,52 +83,84 @@ const ListSummary = (props) => {
 				<div>
 					<p className="text-sm text-slate-600">{listing.features[0]} </p>
 				</div>
-				<div className="flex justify-between items-center">
-					<h1>{listing.details.rent} Rs</h1>
-					<button
-						onClick={async () => {
-							if (!userData) {
-								console.log("login to like");
-								toast("Login to like");
-							} else if (userData.emailVerified === false) {
-								toast("Verify OTP to like");
-							} else {
-								if (liked === "none") {
-									setLiked("red"); // code to edit the like button
-									await query("POST", "api/listings/addToLiked", {
-										id: props.listing._id,
-									});
-								} else {
-									if (!inFavPage) {
-										setLiked("none");
-									}
-									setFavourites(
-										favourites.filter((favourite) => {
-											return favourite._id != listing._id;
-										})
-									);
-									await query("POST", "api/listings/unlike", {
-										id: props.listing._id,
-									});
-								}
-							}
-						}}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-6 w-6"
-							fill={liked} // we can change the color here
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							strokeWidth={2}
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-							/>
-						</svg>
-					</button>
+				<div className="flex justify-between">
+					<div>
+						<h1>{listing.details.rent} Rs</h1>
+					</div>
+					<div>
+						<div className="flex justify-around">
+							{!showDelete && (
+								<button
+									onClick={async () => {
+										if (!userData) {
+											console.log("login to like");
+											toast("Login to like");
+										} else if (userData.emailVerified === false) {
+											toast("Verify OTP to like");
+										} else {
+											if (liked === "none") {
+												setLiked("red"); // code to edit the like button
+												await query("POST", "api/listings/addToLiked", {
+													id: props.listing._id,
+												});
+											} else {
+												if (!inFavPage) {
+													setLiked("none");
+												}
+												setFavourites(
+													favourites.filter((favourite) => {
+														return favourite._id != listing._id;
+													})
+												);
+												await query("POST", "api/listings/unlike", {
+													id: props.listing._id,
+												});
+											}
+										}
+									}}
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="h-6 w-6"
+										fill={liked} // we can change the color here
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										strokeWidth={2}
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+										/>
+									</svg>
+								</button>
+							)}
+
+							<div>
+								{showDelete && (
+									<div>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											className="h-6 w-6"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+											strokeWidth={2}
+											onClick={() => {
+												deleteListing(listing);
+											}}
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+											/>
+										</svg>
+									</div>
+								)}
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
