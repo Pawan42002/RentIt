@@ -72,7 +72,7 @@ const LNavbar = () => {
           <div className="flex flex-col md:hidden " onClick={handleOpen}>
             {!isopen ? openMenuIcon : closeMenuIcon}
             {isopen && (
-              <ul className="absolute right-0 top-12 flex flex-col justify-center space-y-2 bg-white p-3 rounded-md w-36 mx-2 border border-gray-300 shadow-md">
+              <ul className="z-10 absolute right-0 top-12 flex flex-col justify-center space-y-2 bg-white p-3 rounded-md w-36 mx-2 border border-gray-300 shadow-md">
                 <li className="cursor-pointer border-b p-1 w-full">
                   <Link to="/b/">Dashboard</Link>
                 </li>
