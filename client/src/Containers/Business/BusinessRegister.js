@@ -59,6 +59,10 @@ function BusinessRegister() {
 		}
 	};
 	const sendOTP = async () => {
+		if (password != confirmPassword) {
+			toast("Check password once again!");
+			return;
+		}
 		if (otpTimeOut) {
 			toast("Wait for some time before requesting for another OTP");
 			return;
@@ -75,13 +79,21 @@ function BusinessRegister() {
 			"api/businessAuth/sendEmailVerification",
 			props
 		);
-		if (res) {
-			toast("OTP sent successfully");
-			setOtpSent(true);
-			setOtpTimeOut(true);
-			setTimeout(() => {
-				setOtpTimeOut(false);
-			}, 20000);
+		try {
+			if (res.data === "Email sent") {
+				toast("OTP sent successfully");
+				setOtpSent(true);
+				setOtpTimeOut(true);
+				setTimeout(() => {
+					setOtpTimeOut(false);
+				}, 20000);
+			} else if (res.data === "Email already in use") {
+				toast("Email id already in use");
+			} else {
+				toast("Something went wrong, please try again later");
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	};
 	const verifyOTP = async () => {
@@ -89,22 +101,20 @@ function BusinessRegister() {
 			email: email,
 			code: code,
 		};
-		let res = await query("POST", "api/businessAuth/verifyOTP", props);
-		if (res) {
-			toast("OTP verified successfully");
-			setEmailVerified(true);
+		try {
+			let res = await query("POST", "api/businessAuth/verifyOTP", props);
+			if (res.data === "OTP verified successfully") {
+				toast("OTP verified successfully");
+				setEmailVerified(true);
+				handleSubmit();
+			} else {
+				toast("OTP does not match");
+			}
+		} catch (error) {
+			toast("Something went wrong");
 		}
 	};
 	const handleSubmit = async () => {
-		if (!emailVerified) {
-			verifyOTP();
-			return;
-		}
-		if (password != confirmPassword) {
-			console.log("Check password once again!");
-			return;
-		}
-
 		let add1 = {
 			city: address,
 		};
@@ -116,12 +126,11 @@ function BusinessRegister() {
 			address: add1,
 		};
 		try {
-			let res = await query("POST", "api/businessAuth/registerLandlord", props);
+			let res = await query("POST", "api/businessAuth/registerClient", props);
 			if (res) {
+				console.log(res);
 				setUserData(res.data);
-				navigate("/b/");
-			} else {
-				toast("Email id is already in use");
+				navigate("/"); // this line also changes
 			}
 		} catch (error) {
 			toast("Something went wrong");
@@ -552,7 +561,7 @@ function BusinessRegister() {
 					</div>
 					<div className="flex w-full">
 						<button
-							onClick={handleSubmit}
+							onClick={verifyOTP}
 							className="
                                         flex
                                         mt-2
@@ -567,9 +576,7 @@ function BusinessRegister() {
                                         duration-150
                                         ease-in"
 						>
-							<span className="mr-2 uppercase">
-								{emailVerified ? "Register" : "Verify OTP"}
-							</span>
+							<span className="mr-2 uppercase">Verify OTP and Register</span>
 							<span>
 								<svg
 									className="h-6 w-6"

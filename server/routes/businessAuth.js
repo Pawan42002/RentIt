@@ -11,8 +11,12 @@ const sendEmailVerification = require("../middleware/sendEmailVerification");
 const JWT_SECRET = "pawan";
 router.post("/sendEmailVerification", async (req, res) => {
 	try {
+		let landlord = await LandlordModel.findOne({ email: req.body.email });
+		if (landlord) {
+			return res.status(200).json({ error: "Email already in use" });
+		}
 		await sendEmailVerification(req.body.email, LandlordEmailVerificationModel);
-		return res.status(200).send("email sent");
+		return res.status(200).send("Email sent");
 	} catch (error) {
 		console.error(error.message);
 		res.status(500).send("error occured heree");

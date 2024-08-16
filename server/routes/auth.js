@@ -11,8 +11,12 @@ const JWT_SECRET = "pawan";
 
 router.post("/sendEmailVerification", async (req, res) => {
 	try {
+		let client = await ClientModel.findOne({ email: req.body.email });
+		if (client) {
+			return res.status(200).send("Email already in use");
+		}
 		await sendEmailVerification(req.body.email, ClientEmailVerificationModel);
-		return res.status(200).send("email sent");
+		return res.status(200).send("Email sent");
 	} catch (error) {
 		console.error(error.message);
 		res.status(500).send("error occured here");

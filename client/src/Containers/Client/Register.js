@@ -60,6 +60,10 @@ function Register() {
 	};
 
 	const sendOTP = async () => {
+		if (password != confirmPassword) {
+			toast("Check password once again!");
+			return;
+		}
 		if (otpTimeOut) {
 			toast("Wait for some time before requesting for another OTP");
 			return;
@@ -72,13 +76,21 @@ function Register() {
 			email: email,
 		};
 		let res = await query("POST", "api/auth/sendEmailVerification", props);
-		if (res) {
-			toast("OTP sent successfully");
-			setOtpSent(true);
-			setOtpTimeOut(true);
-			setTimeout(() => {
-				setOtpTimeOut(false);
-			}, 20000);
+		try {
+			if (res.data === "Email sent") {
+				toast("OTP sent successfully");
+				setOtpSent(true);
+				setOtpTimeOut(true);
+				setTimeout(() => {
+					setOtpTimeOut(false);
+				}, 20000);
+			} else if (res.data === "Email already in use") {
+				toast("Email id already in use");
+			} else {
+				toast("Something went wrong, please try again later");
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	};
 	const verifyOTP = async () => {
@@ -86,22 +98,20 @@ function Register() {
 			email: email,
 			code: code,
 		};
-		let res = await query("POST", "api/auth/verifyOTP", props);
-		if (res) {
-			toast("OTP verified successfully");
-			setEmailVerified(true);
+		try {
+			let res = await query("POST", "api/auth/verifyOTP", props);
+			if (res.data === "OTP verified successfully") {
+				toast("OTP verified successfully");
+				setEmailVerified(true);
+				handleSubmit();
+			} else {
+				toast("OTP does not match");
+			}
+		} catch (error) {
+			toast("Something went wrong");
 		}
 	};
 	const handleSubmit = async () => {
-		if (!emailVerified) {
-			verifyOTP();
-			return;
-		}
-		if (password != confirmPassword) {
-			console.log("Check password once again!");
-			return;
-		}
-
 		let add1 = {
 			city: address,
 		};
@@ -547,41 +557,41 @@ function Register() {
 							</span>
 						</button>
 					</div>
-					<div className="flex w-full">
-						<button
-							onClick={handleSubmit}
-							className="
-                                        flex
-                                        mt-2
-                                        items-center
-                                        justify-center
-                                        focus:outline-none
-                                        bg-indigo-600 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700
-                                        rounded-md
-                                        py-2
-                                        w-full
-                                        transition
-                                        duration-150
-                                        ease-in"
-						>
-							<span className="mr-2 uppercase">
-								{emailVerified ? "Register" : "Verify OTP"}
-							</span>
-							<span>
-								<svg
-									className="h-6 w-6"
-									fill="none"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-								</svg>
-							</span>
-						</button>
-					</div>
+					{otpSent && (
+						<div className="flex w-full">
+							<button
+								onClick={verifyOTP}
+								className="
+									flex
+									mt-2
+									items-center
+									justify-center
+									focus:outline-none
+									bg-indigo-600 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700
+									rounded-md
+									py-2
+									w-full
+									transition
+									duration-150
+									ease-in"
+							>
+								<span className="mr-2 uppercase">Verify OTP and Register</span>
+								<span>
+									<svg
+										className="h-6 w-6"
+										fill="none"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+									</svg>
+								</span>
+							</button>
+						</div>
+					)}
 				</div>
 			</div>
 			<div className="mb-5 flex justify-center items-center mt-6">
