@@ -44,7 +44,11 @@ const Profile = () => {
 		try {
 			const props = { email: userData.email, firstName, lastName };
 			console.log(props);
-			let res = await query("POST", "api/auth/editDetails", props);
+			let endpoint = "api/auth/editDetails";
+			if (userData.isLandlord === true) {
+				endpoint = "api/businessAuth/editDetails";
+			}
+			let res = await query("POST", endpoint, props);
 			if (res.data) {
 				setUserData(res.data);
 				toast("Data edited successfully");
@@ -78,6 +82,16 @@ const Profile = () => {
 						placeholder={"Email Id"}
 					/>
 					<Button name={"Save Details"} onClick={saveDetails} />
+					<Button
+						name={"Change Password"}
+						onClick={() => {
+							if (userData.isLandlord === true) {
+								navigate("/b/changePassword");
+							} else {
+								navigate("/changePassword");
+							}
+						}}
+					/>
 					<Button name={"Logout"} onClick={handleLogout} />
 				</div>
 			</div>
