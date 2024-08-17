@@ -9,49 +9,51 @@ import Home from "./Containers/Home";
 import Dashboard from "./Containers/Business/Dashboard";
 import LProfile from "./Containers/Business/LProfile";
 import ProtectedBusinessRoute from "./Components/ProtectedBusinessRoute";
+import ForgotPassword from "./ForgotPassword";
 function BusinessRouter() {
-  return (
-    <>
-      <Routes>
-        <Route path="/b">
-          <Route
-            path="/b/"
-            element={
-              <ProtectedBusinessRoute>
-                <Dashboard />
-              </ProtectedBusinessRoute>
-            }
-          />
-          <Route
-            path="/b/profile"
-            element={
-              <ProtectedBusinessRoute>
-                <LProfile />
-              </ProtectedBusinessRoute>
-            }
-          />
-          <Route path="/b/register" element={<BusinessRegister />} />
-          <Route path="/b/login" element={<BusinessLogin />} />
-          <Route
-            path="/b/addlisting"
-            element={
-              <ProtectedBusinessRoute>
-                <LAddListing />
-              </ProtectedBusinessRoute>
-            }
-          />
-          <Route
-            path="/b/listings"
-            element={
-              <ProtectedBusinessRoute>
-                <MyListings />
-              </ProtectedBusinessRoute>
-            }
-          />
-        </Route>
-      </Routes>
-    </>
-  );
+	return (
+		<>
+			<Routes>
+				<Route path="/b">
+					<Route
+						path="/b/"
+						element={
+							<ProtectedBusinessRoute>
+								<Dashboard />
+							</ProtectedBusinessRoute>
+						}
+					/>
+					<Route
+						path="/b/profile"
+						element={
+							<ProtectedBusinessRoute>
+								<LProfile />
+							</ProtectedBusinessRoute>
+						}
+					/>
+					<Route path="/b/register" element={<BusinessRegister />} />
+					<Route path="/b/login" element={<BusinessLogin />} />
+					<Route
+						path="/b/addlisting"
+						element={
+							<ProtectedBusinessRoute>
+								<LAddListing />
+							</ProtectedBusinessRoute>
+						}
+					/>
+					<Route
+						path="/b/listings"
+						element={
+							<ProtectedBusinessRoute>
+								<MyListings />
+							</ProtectedBusinessRoute>
+						}
+					/>
+				</Route>
+				<Route exact path="/b/forgotPassword" element={<ForgotPassword />} />
+			</Routes>
+		</>
+	);
 }
 
 export default BusinessRouter;

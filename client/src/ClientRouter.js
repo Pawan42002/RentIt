@@ -10,39 +10,41 @@ import Search from "./Containers/Client/Search";
 import UserLoginRequired from "./Containers/UserLoginRequired";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import DetailListing from "./Containers/DetailListing";
+import ForgotPassword from "./ForgotPassword";
 function ClientRouter() {
-  return (
-    <>
-      <Routes>
-        <Route>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/home" element={<Home />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/search" element={<Search />} />
-          <Route exact path="/listing/:id" element={<DetailListing />} />
-          <Route
-            exact
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            exact
-            path="/favourites"
-            element={
-              <ProtectedRoute>
-                <Favourites />
-              </ProtectedRoute>
-            }
-          />
-        </Route>
-      </Routes>
-    </>
-  );
+	return (
+		<>
+			<Routes>
+				<Route>
+					<Route exact path="/" element={<Home />} />
+					<Route exact path="/home" element={<Home />} />
+					<Route exact path="/register" element={<Register />} />
+					<Route exact path="/login" element={<Login />} />
+					<Route exact path="/search" element={<Search />} />
+					<Route exact path="/listing/:id" element={<DetailListing />} />
+					<Route exact path="/forgotPassword" element={<ForgotPassword />} />
+					<Route
+						exact
+						path="/profile"
+						element={
+							<ProtectedRoute>
+								<Profile />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						exact
+						path="/favourites"
+						element={
+							<ProtectedRoute>
+								<Favourites />
+							</ProtectedRoute>
+						}
+					/>
+				</Route>
+			</Routes>
+		</>
+	);
 }
 
 export default ClientRouter;

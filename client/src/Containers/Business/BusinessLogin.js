@@ -194,6 +194,15 @@ const BusinessLogin = () => {
 					  "
 					>
 						<span className="ml-2">
+							Forgot your password?
+							<Link
+								to="/b/forgotPassword"
+								className="text-xs ml-2 text-indigo-600 hover:text-indigo-500 font-semibold"
+							>
+								Click here
+							</Link>
+						</span>
+						<span className="ml-2">
 							You don't have an account?
 							<Link
 								to="/b/register"
