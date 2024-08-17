@@ -6,6 +6,11 @@ const bodyParser = require("body-parser");
 const app = express();
 const cors = require("cors");
 const fetchUser = require("./middleware/fetchUser");
+const bcrypt = require("bcryptjs");
+const ClientModel = require("./Models/Client");
+const LandlordModel = require("./Models/Landord");
+const generateStrongPassword = require("./middleware/generateStrongPassword");
+const { sendNewPassword } = require("./middleware/sendEmailVerification");
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
@@ -48,4 +53,31 @@ app.post("/logout", async (req, res) => {
 
 app.listen(3005, () => {
 	console.log("Running on port 3005");
+});
+
+app.post("/forgotPassword", async (req, res) => {
+	try {
+		let email = req.body.email,
+			password = generateStrongPassword();
+		let Model;
+		const salt = await bcrypt.genSalt(10);
+		const secPass = await bcrypt.hash(password, salt);
+		let type;
+		if (req.body.type === "Client") {
+			Model = ClientModel;
+			type = "Client";
+		} else {
+			Model = LandlordModel;
+			type = "Landlord";
+		}
+		let user = await Model.findOne({ email });
+		if (!user) {
+			res.status(200).send("Account does not exist");
+		}
+		await sendNewPassword(email, password, type);
+		await Model.findOneAndUpdate({ email: email }, { password: secPass });
+		res.status(200).send("Password sent to email");
+	} catch (error) {
+		res.json(error);
+	}
 });

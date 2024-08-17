@@ -39,4 +39,18 @@ const sendEmailVerification = async (email, Model) => {
 	});
 };
 
-module.exports = sendEmailVerification;
+const sendNewPassword = async (email, password, type) => {
+	let mailOptions = {
+		from: "pawanvanced@gmail.com",
+		to: email,
+		subject: "New password",
+		text: "Your new password for your " + type + " account is " + password,
+	};
+	transporter.sendMail(mailOptions, async (error, info) => {
+		if (error) {
+			return error;
+		}
+	});
+};
+
+module.exports = { sendEmailVerification, sendNewPassword };

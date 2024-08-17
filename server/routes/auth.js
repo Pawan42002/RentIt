@@ -5,7 +5,9 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const fetchUser = require("../middleware/fetchUser");
-const sendEmailVerification = require("../middleware/sendEmailVerification");
+const {
+	sendEmailVerification,
+} = require("../middleware/sendEmailVerification");
 //const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_SECRET = "pawan";
 
@@ -43,6 +45,26 @@ router.post("/verifyOTP", async (req, res) => {
 		}
 	} catch (error) {
 		console.error(error.message);
+		res.status(500).send("error occured here");
+	}
+});
+
+router.post("/changePassword", async (req, res) => {
+	try {
+		let { email, currentPassword, newPassword } = req.body;
+		let client = await ClientModel.findOne({ email });
+		const passwordCompare = await bcrypt.compare(
+			currentPassword,
+			client.password
+		);
+		if (!passwordCompare) { 
+			return res.status(200).send("Wrong password");
+		}
+		const salt = await bcrypt.genSalt(10);
+		const secPass = await bcrypt.hash(newPassword, salt);
+		await ClientModel.findOneAndUpdate({ email }, { password: secPass });
+		res.status(200).send("Password Updated successfully");
+	} catch (error) {
 		res.status(500).send("error occured here");
 	}
 });
