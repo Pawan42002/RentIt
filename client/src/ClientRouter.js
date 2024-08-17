@@ -11,6 +11,7 @@ import UserLoginRequired from "./Containers/UserLoginRequired";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import DetailListing from "./Containers/DetailListing";
 import ForgotPassword from "./ForgotPassword";
+import ChangePassword from "./ChangePassword";
 function ClientRouter() {
 	return (
 		<>
@@ -22,7 +23,6 @@ function ClientRouter() {
 					<Route exact path="/login" element={<Login />} />
 					<Route exact path="/search" element={<Search />} />
 					<Route exact path="/listing/:id" element={<DetailListing />} />
-					<Route exact path="/forgotPassword" element={<ForgotPassword />} />
 					<Route
 						exact
 						path="/profile"
@@ -38,6 +38,16 @@ function ClientRouter() {
 						element={
 							<ProtectedRoute>
 								<Favourites />
+							</ProtectedRoute>
+						}
+					/>
+					<Route exact path="/forgotPassword" element={<ForgotPassword />} />
+					<Route
+						exact
+						path="/changePassword"
+						element={
+							<ProtectedRoute>
+								<ChangePassword />
 							</ProtectedRoute>
 						}
 					/>

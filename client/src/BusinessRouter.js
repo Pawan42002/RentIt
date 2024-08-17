@@ -8,8 +8,10 @@ import BusinessRegister from "./Containers/Business/BusinessRegister";
 import Home from "./Containers/Home";
 import Dashboard from "./Containers/Business/Dashboard";
 import LProfile from "./Containers/Business/LProfile";
+import Profile from "./Containers/Client/Profile"; // this is used for both client and landlord
 import ProtectedBusinessRoute from "./Components/ProtectedBusinessRoute";
 import ForgotPassword from "./ForgotPassword";
+import ChangePassword from "./ChangePassword";
 function BusinessRouter() {
 	return (
 		<>
@@ -27,7 +29,7 @@ function BusinessRouter() {
 						path="/b/profile"
 						element={
 							<ProtectedBusinessRoute>
-								<LProfile />
+								<Profile />
 							</ProtectedBusinessRoute>
 						}
 					/>
@@ -51,6 +53,15 @@ function BusinessRouter() {
 					/>
 				</Route>
 				<Route exact path="/b/forgotPassword" element={<ForgotPassword />} />
+				<Route
+					exact
+					path="/b/changePassword"
+					element={
+						<ProtectedBusinessRoute>
+							<ChangePassword />
+						</ProtectedBusinessRoute>
+					}
+				/>
 			</Routes>
 		</>
 	);
