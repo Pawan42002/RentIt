@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const ListSummary = (props) => {
 	const [liked, setLiked] = useState("none");
 	const { userData, favourites, setFavourites } = useContext(appContext);
-	const { listing, inFavPage, showDelete, deleteListing } = props;
+	const { listing, inFavPage, showDelete, deleteListing, isSearch } = props;
 	const [open, setOpen] = useState(false);
 	const navigate = useNavigate();
 	useEffect(() => {
@@ -21,7 +21,11 @@ const ListSummary = (props) => {
 		}
 	}, []);
 	return (
-		<div className="flex flex-col min-w-fit bg-white rounded-lg border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 max-w-xs">
+		<div
+			className={`flex ${
+				isSearch ? "flex-row w-full" : "flex-col max-w-xs"
+			} min-w-fit bg-white rounded-lg border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 `}
+		>
 			<img
 				className="rounded-lg max-w-xs"
 				src={listing.images[0].url}
@@ -31,9 +35,15 @@ const ListSummary = (props) => {
 					navigate(link);
 				}}
 			/>
-			<div className="flex flex-col p-3 space-y-2 max-w-md">
+			<div
+				className={`flex flex-col p-3 space-y-2 ${
+					isSearch ? "w-full" : "max-w-md"
+				}`}
+			>
 				<div className="flex justify-between items-center space-x-5">
-					<h1 className="font-bold">{listing.location}</h1>
+					<h1 className="font-bold">
+						{listing.location + ", " + listing.address.city}
+					</h1>
 					<div className="flex ">
 						<svg
 							className="w-5 h-5 text-yellow-300"
@@ -88,7 +98,7 @@ const ListSummary = (props) => {
 						<h1>{listing.details.rent} Rs</h1>
 					</div>
 					<div>
-						<div className="flex justify-around">
+						<div className={`flex justify-around ${isSearch ? "px-1" : ""}`}>
 							{!showDelete && (
 								<button
 									onClick={async () => {
