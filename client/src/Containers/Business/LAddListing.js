@@ -10,6 +10,7 @@ import Modal from "../../Components/Modal";
 import Spinner from "../../Components/Spinner";
 import { toast } from "react-toastify";
 import appContext from "../../context/appContext";
+import { useNavigate } from "react-router-dom";
 const imageIcon = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -44,6 +45,7 @@ const closeIcon = (
 
 const LAddListing = () => {
 	const { userData } = useContext(appContext);
+	const navigate = useNavigate();
 	let containerStyle =
 		"flex flex-col justify-center space-y-4 bg-white mt-5 shadow-md rounded-lg px-10 p-5";
 	const [street, setStreet] = useState(""); //
@@ -116,7 +118,8 @@ const LAddListing = () => {
 		};
 		const res = await query("POST", "api/listings/addListing", props, true);
 		if (res) {
-			alert("Listing added");
+			toast("Listing added");
+			navigate("/b/listings");
 		}
 		console.log(res);
 	};
