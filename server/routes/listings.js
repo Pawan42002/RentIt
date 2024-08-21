@@ -70,6 +70,34 @@ router.get("/getAllLiked", fetchUser, async (req, res) => {
 	}
 });
 
+router.post("/booking", async (req, res) => {
+	try {
+		await ListingModel.findOneAndUpdate(
+			{ _id: req.body.params.id },
+			{
+				$push: {
+					bookings: {
+						clientName: req.body.clientName,
+						clientEmail: req.body.clientEmail,
+						startDate: req.body.startDate,
+						endDate: req.body.endDate,
+					},
+				},
+			}
+		);
+		res.status(200).send("Booking successful");
+	} catch (error) {
+		res.json("error");
+	}
+});
+
+router.post("/getReservedDates", async (req, res) => {
+	try {
+		const listing = await ListingModel.findOne({ _id: req.body.params.id });
+		res.json(listing.bookings);
+	} catch (error) {}
+});
+
 router.post("/getSingleListing", async (req, res) => {
 	try {
 		//console.log(req.body.params);

@@ -12,6 +12,7 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import DetailListing from "./Containers/DetailListing";
 import ForgotPassword from "./ForgotPassword";
 import ChangePassword from "./ChangePassword";
+import DetailListingAndBooking from "./Containers/DetailListingAndBooking";
 function ClientRouter() {
 	return (
 		<>
@@ -22,7 +23,11 @@ function ClientRouter() {
 					<Route exact path="/register" element={<Register />} />
 					<Route exact path="/login" element={<Login />} />
 					<Route exact path="/search" element={<Search />} />
-					<Route exact path="/listing/:id" element={<DetailListing />} />
+					<Route
+						exact
+						path="/listing/:id"
+						element={<DetailListingAndBooking />}
+					/>
 					<Route
 						exact
 						path="/profile"
