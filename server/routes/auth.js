@@ -57,7 +57,7 @@ router.post("/changePassword", async (req, res) => {
 			currentPassword,
 			client.password
 		);
-		if (!passwordCompare) { 
+		if (!passwordCompare) {
 			return res.status(200).send("Wrong password");
 		}
 		const salt = await bcrypt.genSalt(10);

@@ -46,40 +46,16 @@ const phoneSVG = (
 		<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
 	</svg>
 );
-const DetailListing = () => {
+const DetailListing = (props) => {
 	const params = useParams();
-	const [listing, setListing] = useState(null);
-	const [loading, setLoading] = useState(true);
+	const { listing } = props;
 	const [currentImage, setCurrentImage] = useState("");
 	const [imageNumber, setImageNumber] = useState(0);
 	const [imagesSize, setImagesSize] = useState(0);
 	useEffect(() => {
-		const getData = async () => {
-			try {
-				const props = { params: { id: params.id } };
-				// console.log(props);
-				const response = await query(
-					"POST",
-					"api/listings/getSingleListing",
-					props
-				);
-				setListing(response.data);
-				setCurrentImage(response.data.images[0].url);
-				setImagesSize(response.data.images.length);
-				setLoading(false);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		getData();
+		setCurrentImage(listing.images[0].url);
+		setImagesSize(listing.images.length);
 	}, []);
-	if (loading) {
-		return (
-			<>
-				<div>loading</div>
-			</>
-		);
-	}
 	let containerStyle =
 		"flex flex-col justify-center bg-white mt-3 shadow-md rounded-md px-7 p-5";
 

@@ -13,6 +13,7 @@ import DetailListing from "./Containers/DetailListing";
 import ForgotPassword from "./ForgotPassword";
 import ChangePassword from "./ChangePassword";
 import DetailListingAndBooking from "./Containers/DetailListingAndBooking";
+import MyBookings from "./Containers/Client/MyBookings";
 function ClientRouter() {
 	return (
 		<>
@@ -34,6 +35,15 @@ function ClientRouter() {
 						element={
 							<ProtectedRoute>
 								<Profile />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						exact
+						path="/myBookings"
+						element={
+							<ProtectedRoute>
+								<MyBookings />
 							</ProtectedRoute>
 						}
 					/>

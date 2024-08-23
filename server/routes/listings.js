@@ -91,13 +91,6 @@ router.post("/booking", async (req, res) => {
 	}
 });
 
-router.post("/getReservedDates", async (req, res) => {
-	try {
-		const listing = await ListingModel.findOne({ _id: req.body.params.id });
-		res.json(listing.bookings);
-	} catch (error) {}
-});
-
 router.post("/getSingleListing", async (req, res) => {
 	try {
 		//console.log(req.body.params);

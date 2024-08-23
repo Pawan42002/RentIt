@@ -9,27 +9,12 @@ import appContext from "../context/appContext";
 import Button from "./Button";
 import { query } from "../middleware/query";
 import { toast } from "react-toastify";
-const BookingCalendar = () => {
+const BookingCalendar = (props) => {
 	const params = useParams();
 	const { userData } = useContext(appContext);
+	const { listing } = props;
 	const [selectedDates, setSelectedDates] = useState([]);
-	const [reservedDates, setReservedDates] = useState([]);
-	useEffect(() => {
-		const getReservedDates = async () => {
-			try {
-				const props = {
-					params: { id: params.id },
-				};
-				let res = await query("POST", "api/listings/getReservedDates", props);
-				if (res.data) {
-					setReservedDates(res.data);
-				}
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		getReservedDates();
-	}, []);
+	const [reservedDates, setReservedDates] = useState(listing.bookings);
 	const handleBooking = async () => {
 		const props = {
 			params: { id: params.id },
