@@ -22,6 +22,10 @@ const BookingCalendar = (props) => {
 			endDate: new Date(selectedDates[1]),
 			clientName: userData.firstName,
 			clientEmail: userData.email,
+			landlordEmail: listing.landlordEmail,
+			listingID: listing._id,
+			listingImage: listing.images[0].url,
+			listingLocation: listing.location + ", " + listing.address.city,
 		};
 		let res = await query("POST", "api/listings/booking", props);
 		if (res.data === "Booking successful") {

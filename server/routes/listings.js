@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const fetchUser = require("../middleware/fetchUser");
 const ClientModel = require("../Models/Client");
+const BookingModel = require("../Models/Booking");
 // add address back again here
 router.post("/addListing", fetchUser, async (req, res) => {
 	try {
@@ -70,6 +71,15 @@ router.get("/getAllLiked", fetchUser, async (req, res) => {
 	}
 });
 
+router.post("/getAllBookings", async (req, res) => {
+	try {
+		const bookings = await BookingModel.find({ clientEmail: req.body.email });
+		res.json(bookings);
+	} catch (error) {
+		res.json("error");
+	}
+});
+
 router.post("/booking", async (req, res) => {
 	try {
 		await ListingModel.findOneAndUpdate(
@@ -85,7 +95,27 @@ router.post("/booking", async (req, res) => {
 				},
 			}
 		);
-		res.status(200).send("Booking successful");
+		let booking = await BookingModel.create({
+			startDate: req.body.startDate,
+			endDate: req.body.endDate,
+			clientEmail: req.body.clientEmail,
+			landlordEmail: req.body.landlordEmail,
+			listingID: req.body.listingID,
+			listingImage: req.body.listingImage,
+			listingLocation: req.body.listingLocation,
+		});
+		if (booking) {
+			res.status(200).send("Booking successful");
+		}
+	} catch (error) {
+		res.json("error");
+	}
+});
+
+router.post("/deleteListing", async (req, res) => {
+	try {
+		await BookingModel.findOneAndDelete({ _id: req.body.id });
+		res.json("Booking Deleted");
 	} catch (error) {
 		res.json("error");
 	}
