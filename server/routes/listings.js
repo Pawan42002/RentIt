@@ -71,6 +71,7 @@ router.get("/getAllLiked", fetchUser, async (req, res) => {
 	}
 });
 
+// related to bookings
 router.post("/getAllBookings", async (req, res) => {
 	try {
 		const bookings = await BookingModel.find({ clientEmail: req.body.email });
@@ -82,19 +83,6 @@ router.post("/getAllBookings", async (req, res) => {
 
 router.post("/booking", async (req, res) => {
 	try {
-		await ListingModel.findOneAndUpdate(
-			{ _id: req.body.params.id },
-			{
-				$push: {
-					bookings: {
-						clientName: req.body.clientName,
-						clientEmail: req.body.clientEmail,
-						startDate: req.body.startDate,
-						endDate: req.body.endDate,
-					},
-				},
-			}
-		);
 		let booking = await BookingModel.create({
 			startDate: req.body.startDate,
 			endDate: req.body.endDate,
@@ -112,7 +100,23 @@ router.post("/booking", async (req, res) => {
 	}
 });
 
-router.post("/deleteListing", async (req, res) => {
+router.post("/getReservedDates", async (req, res) => {
+	try {
+		let bookings = await BookingModel.find({ listingID: req.body.listingID });
+		let reservedDates = [];
+		for (let booking in bookings) {
+			reservedDates.push({
+				startDate: bookings[booking].startDate,
+				endDate: bookings[booking].endDate,
+			});
+		}
+		return res.json(reservedDates);
+	} catch (error) {
+		return res.json(error);
+	}
+});
+
+router.post("/deleteBooking", async (req, res) => {
 	try {
 		await BookingModel.findOneAndDelete({ _id: req.body.id });
 		res.json("Booking Deleted");
@@ -120,7 +124,7 @@ router.post("/deleteListing", async (req, res) => {
 		res.json("error");
 	}
 });
-
+// end of bookings
 router.post("/getSingleListing", async (req, res) => {
 	try {
 		//console.log(req.body.params);

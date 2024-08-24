@@ -52,25 +52,6 @@ const LikeSchema = new mongoose.Schema({
 	},
 });
 
-const bookingSchema = new mongoose.Schema({
-	startDate: {
-		type: Date,
-		required: true,
-	},
-	endDate: {
-		type: Date,
-		required: true,
-	},
-	clientName: {
-		type: String,
-		required: true,
-	},
-	clientEmail: {
-		type: String,
-		required: true,
-	},
-});
-
 const ListingSchema = new mongoose.Schema({
 	landlord: {
 		type: Schema.Types.ObjectId,
@@ -111,7 +92,6 @@ const ListingSchema = new mongoose.Schema({
 		type: DetailsSchema,
 		required: true,
 	},
-	bookings: [bookingSchema],
 	date: {
 		type: Date,
 		default: Date.now,

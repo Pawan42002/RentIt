@@ -21,6 +21,29 @@ const Favourites = () => {
 		};
 		getFavourites();
 	}, []);
+	if (loading) {
+		return (
+			<div className="flex justify-center items-center h-full">
+				<div className="w-8 h-8">
+					<Spinner />
+				</div>
+			</div>
+		);
+	}
+	if (favourites.length === 0) {
+		return (
+			<div className="flex items-center justify-center h-screen p-6 bg-gray-50 rounded-lg shadow-md">
+				<div className="text-center">
+					<div className="text-gray-500 text-lg md:text-xl font-semibold">
+						You haven't liked anything
+					</div>
+					<p className="text-gray-400 mt-2 text-sm md:text-base">
+						Start exploring!
+					</p>
+				</div>
+			</div>
+		);
+	}
 	return (
 		<div>
 			{loading && <Spinner />}

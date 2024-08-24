@@ -9,12 +9,26 @@ import appContext from "../context/appContext";
 import Button from "./Button";
 import { query } from "../middleware/query";
 import { toast } from "react-toastify";
+import Spinner from "../Components/Spinner";
 const BookingCalendar = (props) => {
 	const params = useParams();
 	const { userData } = useContext(appContext);
 	const { listing } = props;
 	const [selectedDates, setSelectedDates] = useState([]);
-	const [reservedDates, setReservedDates] = useState(listing.bookings);
+	const [reservedDates, setReservedDates] = useState([]);
+	const [loading, setLoading] = useState(true);
+	useEffect(() => {
+		const getReservedDates = async () => {
+			console.log(listing);
+			const props = { listingID: listing._id };
+			let res = await query("POST", "api/listings/getReservedDates", props);
+			if (res.data) {
+				setReservedDates(res.data);
+				setLoading(false);
+			}
+		};
+		getReservedDates();
+	}, []);
 	const handleBooking = async () => {
 		const props = {
 			params: { id: params.id },
@@ -42,6 +56,9 @@ const BookingCalendar = (props) => {
 			alert("Failure due to some reason");
 		}
 	};
+	if (loading) {
+		return <Spinner />;
+	}
 	return (
 		<div className="flex items-center justify-center min-h-screen bg-gray-200 p-4">
 			<div className="flex flex-col items-center justify-center p-8 bg-white rounded-lg shadow-lg max-w-md w-full">

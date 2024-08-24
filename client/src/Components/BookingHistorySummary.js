@@ -9,21 +9,18 @@ const BookingHistorySummary = (props) => {
 	const { booking, bookingDetails, setBookingDetails } = props;
 	let startDate = new Date(booking.startDate);
 	let endDate = new Date(booking.endDate);
-	console.log(booking.id);
-	console.log(bookingDetails[0]._id);
 	const deleteBooking = async () => {
 		if (window.confirm("Are you sure you want to delete this booking?")) {
 			try {
 				let props = { id: booking._id };
-				let res = await query("POST", "api/listings/deleteListing", props);
-				if (res.data === "Booking deleted") {
-					// setBookingDetails(
-					// 	bookingDetails.filter((bookingDetail) => {
-					// 		return bookingDetail._id !== booking._id;
-					// 	})
-					// );
+				let res = await query("POST", "api/listings/deleteBooking", props);
+				if (res.data === "Booking Deleted") {
+					setBookingDetails(
+						bookingDetails.filter((bookingDetail) => {
+							return bookingDetail._id !== booking._id;
+						})
+					);
 					toast("Booking successfully deleted");
-					// we also have to remove it from temporary stuff
 				}
 			} catch (error) {
 				toast("Some problem occured");
