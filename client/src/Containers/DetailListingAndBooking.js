@@ -14,7 +14,6 @@ const DetailListingAndBooking = () => {
 		const getData = async () => {
 			try {
 				const props = { params: { id: params.id } };
-				// console.log(props);
 				const response = await query(
 					"POST",
 					"api/listings/getSingleListing",
@@ -35,6 +34,15 @@ const DetailListingAndBooking = () => {
 					<Spinner />
 				</div>
 			</>
+		);
+	}
+	if (userData === null) {
+		return (
+			<div className="flex flex-col lg:flex-row items-start justify-center lg:space-x-8 p-6 lg:p-8 bg-gray-100 min-h-screen">
+				<div className="w-full lg:w-2/3 mb-6 lg:mb-0 p-6 bg-white rounded-lg shadow-lg">
+					<DetailListing listing={listing} />
+				</div>
+			</div>
 		);
 	}
 	return (

@@ -127,7 +127,6 @@ router.post("/deleteBooking", async (req, res) => {
 // end of bookings
 router.post("/getSingleListing", async (req, res) => {
 	try {
-		//console.log(req.body.params);
 		const listing = await ListingModel.findOne({ _id: req.body.params.id });
 		res.json(listing);
 	} catch (error) {
