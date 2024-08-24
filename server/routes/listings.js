@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const fetchUser = require("../middleware/fetchUser");
 const ClientModel = require("../Models/Client");
+const BookingModel = require("../Models/Booking");
 // add address back again here
 router.post("/addListing", fetchUser, async (req, res) => {
 	try {
@@ -70,9 +71,62 @@ router.get("/getAllLiked", fetchUser, async (req, res) => {
 	}
 });
 
+// related to bookings
+router.post("/getAllBookings", async (req, res) => {
+	try {
+		const bookings = await BookingModel.find({ clientEmail: req.body.email });
+		res.json(bookings);
+	} catch (error) {
+		res.json("error");
+	}
+});
+
+router.post("/booking", async (req, res) => {
+	try {
+		let booking = await BookingModel.create({
+			startDate: req.body.startDate,
+			endDate: req.body.endDate,
+			clientEmail: req.body.clientEmail,
+			landlordEmail: req.body.landlordEmail,
+			listingID: req.body.listingID,
+			listingImage: req.body.listingImage,
+			listingLocation: req.body.listingLocation,
+		});
+		if (booking) {
+			res.status(200).send("Booking successful");
+		}
+	} catch (error) {
+		res.json("error");
+	}
+});
+
+router.post("/getReservedDates", async (req, res) => {
+	try {
+		let bookings = await BookingModel.find({ listingID: req.body.listingID });
+		let reservedDates = [];
+		for (let booking in bookings) {
+			reservedDates.push({
+				startDate: bookings[booking].startDate,
+				endDate: bookings[booking].endDate,
+			});
+		}
+		return res.json(reservedDates);
+	} catch (error) {
+		return res.json(error);
+	}
+});
+
+router.post("/deleteBooking", async (req, res) => {
+	try {
+		await BookingModel.findOneAndDelete({ _id: req.body.id });
+		res.json("Booking Deleted");
+	} catch (error) {
+		res.json("error");
+	}
+});
+// end of bookings
 router.post("/getSingleListing", async (req, res) => {
 	try {
-		//console.log(req.body.params);
 		const listing = await ListingModel.findOne({ _id: req.body.params.id });
 		res.json(listing);
 	} catch (error) {

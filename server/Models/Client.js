@@ -10,6 +10,21 @@ const AddressSchema = new mongoose.Schema({
 	},
 });
 
+const BookingSchema = new mongoose.Schema({
+	listingID: {
+		type: String,
+		required: true,
+	},
+	startDate: {
+		type: Date,
+		required: true,
+	},
+	endDate: {
+		type: Date,
+		required: true,
+	},
+});
+
 const ClientSchema = new mongoose.Schema({
 	email: {
 		type: String,
@@ -33,6 +48,7 @@ const ClientSchema = new mongoose.Schema({
 		default: false,
 	},
 	favourites: [ListingModel],
+	bookings: [BookingSchema],
 	date: {
 		type: Date,
 		default: Date.now,
