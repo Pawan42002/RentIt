@@ -205,8 +205,8 @@ const LAddListing = () => {
 						</div>
 
 						<Input
-							label={"Rent per Month"}
-							placeholder={"Rent per Month"}
+							label={"Rent per Night"}
+							placeholder={"Rent per Night"}
 							value={rent}
 							setValue={setRent}
 						/>

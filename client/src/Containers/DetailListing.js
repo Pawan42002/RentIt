@@ -146,7 +146,7 @@ const DetailListing = (props) => {
 								<div className="text-xl font-bold p-1">Rent</div>
 								<div className="px-1 text-sm flex flex-row">
 									<div className="text-xl">Rs {listing.details.rent}</div>
-									<div className="mt-1">/month</div>
+									<div className="mt-1">/night</div>
 								</div>
 							</div>
 						</div>
