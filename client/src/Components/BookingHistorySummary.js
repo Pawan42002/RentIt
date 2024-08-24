@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const BookingHistorySummary = (props) => {
 	// we need an image,startDate,endDate,location, and link to the Detail listing page,
 	const navigate = useNavigate();
-	const { booking, bookingDetails, setBookingDetails } = props;
+	const { booking, bookingDetails, setBookingDetails, inLandlordPage } = props;
 	let startDate = new Date(booking.startDate);
 	let endDate = new Date(booking.endDate);
 	const deleteBooking = async () => {
@@ -41,7 +41,7 @@ const BookingHistorySummary = (props) => {
 					alt="Listing"
 				/>
 				<div className="flex flex-col justify-center text-center md:text-left flex-grow">
-					<h3 className="text-lg md:text-xl font-semibold text-gray-800">
+					<h3 className="text-lg md:text-xl font-semibold text-gray-800 leading-tight">
 						{booking.listingLocation}
 					</h3>
 					<p className="text-sm md:text-base text-gray-600 mt-2">
@@ -51,11 +51,21 @@ const BookingHistorySummary = (props) => {
 					<p className="text-sm md:text-base text-gray-600">
 						<span className="font-medium">Check Out:</span> {endDate.toString()}
 					</p>
+					{inLandlordPage && (
+						<div className="mt-3 md:mt-0 text-sm md:text-base text-gray-600">
+							<span className="font-medium">Client Contact:</span>{" "}
+							{booking.clientEmail}
+						</div>
+					)}
 				</div>
-				<div className="flex justify-center md:justify-end w-full md:w-auto">
-					<div className="text-red-500 hover:text-red-700 text-sm font-normal transition-colors duration-300 ease-in-out">
-						<Button name="Delete Booking" onClick={deleteBooking} />
-					</div>
+
+				<div className="mt-4 md:mt-0 flex justify-center md:justify-end w-full md:w-auto">
+					<button
+						className="text-red-500 hover:text-red-700 text-sm font-semibold px-3 py-2 border border-red-500 rounded-lg transition-all duration-300 ease-in-out hover:bg-red-50"
+						onClick={deleteBooking}
+					>
+						Delete Booking
+					</button>
 				</div>
 			</div>
 		</>

@@ -81,6 +81,18 @@ router.post("/getAllBookings", async (req, res) => {
 	}
 });
 
+router.post("/getAllBookingsLandlord", async (req, res) => {
+	// landlord will use this
+	try {
+		const bookings = await BookingModel.find({
+			landlordEmail: req.body.landlordEmail,
+		});
+		res.json(bookings);
+	} catch (error) {
+		res.json("error");
+	}
+});
+
 router.post("/booking", async (req, res) => {
 	try {
 		let booking = await BookingModel.create({
@@ -117,6 +129,7 @@ router.post("/getReservedDates", async (req, res) => {
 });
 
 router.post("/deleteBooking", async (req, res) => {
+	// both client and landlord can use this
 	try {
 		await BookingModel.findOneAndDelete({ _id: req.body.id });
 		res.json("Booking Deleted");

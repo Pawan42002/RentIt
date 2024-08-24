@@ -46,15 +46,18 @@ const MyBookings = () => {
 	}
 	return (
 		<>
-			<div className="space-y-4 p-4">
-				{bookingDetails.map((booking) => (
-					<BookingHistorySummary
-						key={booking.listingID}
-						booking={booking}
-						bookingDetails={bookingDetails}
-						setBookingDetails={setBookingDetails}
-					/>
-				))}
+			<div className="pt-6">
+				<div className="space-y-4 p-4 bg-gray-50 rounded-lg shadow-sm">
+					{bookingDetails.map((booking) => (
+						<BookingHistorySummary
+							key={booking.listingID}
+							booking={booking}
+							bookingDetails={bookingDetails}
+							setBookingDetails={setBookingDetails}
+							inLandlordPage={true}
+						/>
+					))}
+				</div>
 			</div>
 		</>
 	);
